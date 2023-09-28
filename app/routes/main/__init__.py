@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template
 
+from app.controllers.main import index
+
 
 view = Blueprint("base", __name__, url_prefix='/')
 
-@view.route("/")
-def index():
-    return render_template("index.html")
+view.route("/")(index)

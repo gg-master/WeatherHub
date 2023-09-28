@@ -1,6 +1,6 @@
 from pathlib import Path
 from dotenv import load_dotenv
-from app import create_app
+from app.app import create_app
 
 ENV_PATH = "./dev.env"
 
