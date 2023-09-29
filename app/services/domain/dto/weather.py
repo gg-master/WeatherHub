@@ -1,12 +1,12 @@
-from app.services.dto.temperature import Temperature
-from app.services.dto.wind import Wind
-from app.services.dto.location import Location
-from app.services.dto.conditions import WeatherCondition
-
 from dataclasses import dataclass
 import datetime
 
 from typing import Dict, Optional
+from app.services.domain.dto.conditions import WeatherCondition
+from app.services.domain.dto.location import Location
+
+from app.services.domain.dto.temperature import Temperature
+from app.services.domain.dto.wind import Wind
 
 
 @dataclass
@@ -16,6 +16,7 @@ class Weather:
     humidity: float
     pressure: float
     condition: WeatherCondition
+
 
 @dataclass
 class CurrentWeather(Weather):

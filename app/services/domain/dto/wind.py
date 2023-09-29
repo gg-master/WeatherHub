@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from app.services.enums import Direction
+
+from app.services.domain.utils.enums import Direction
+
 
 @dataclass
 class Wind:

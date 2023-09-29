@@ -1,11 +1,8 @@
 import logging
-from app.services.domain.interfaces.weather_repository import IWeatherRepository
+from app.services.domain.contract.usecase_command import UseCaseCommand
+from app.services.domain.contract.weather_repository import IWeatherRepository
 
 
-class GetCurrentForecast:
-    def __init__(self, repository: IWeatherRepository):
-        self._logger = logging.getLogger(__name__)
-        self._repository = repository
-        
+class GetCurrentForecast(UseCaseCommand):
     def execute(self):
         ...
