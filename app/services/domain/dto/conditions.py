@@ -31,9 +31,7 @@ class WeatherCondition:
         precipitation_type: Union[int, str],
     ):
         self._cloudness = self._transform_to_int(cloudness, self.CLOUDNESS)
-        self._precipitation = self._transform_to_int(
-            precipitation, self.PRECIPITATION
-        )
+        self._precipitation = self._transform_to_int(precipitation, self.PRECIPITATION)
         self._precipitation_type = self._transform_to_int(
             precipitation_type, self.PRECIPITATION_TYPE
         )
@@ -46,14 +44,14 @@ class WeatherCondition:
     def precipitation(self):
         return self._precipitation
 
-    @precipitation
+    @property
     def precipitation_type(self):
-        return self.precipitation_type
+        return self._precipitation_type
 
     @staticmethod
     def _transform_to_int(value: Union[str, int], type: int) -> int:
         if type == WeatherCondition.CLOUDNESS:
-            values = WeatherCondition.CLOUDNESS
+            values = WeatherCondition.CLOUDNESS_VALUES
         elif type == WeatherCondition.PRECIPITATION:
             values = WeatherCondition.PRECIPITATION_VALUES
         elif type == WeatherCondition.PRECIPITATION_TYPE:
@@ -69,11 +67,7 @@ class WeatherCondition:
             return value
 
     def __int__(self):
-        return (
-            self.CLOUDNESS * 100
-            + self.PRECIPITATION * 10
-            + self.PRECIPITATION_TYPE
-        )
+        return self.CLOUDNESS * 100 + self.PRECIPITATION * 10 + self.PRECIPITATION_TYPE
 
     @classmethod
     def from_int(cls, integer: int) -> "WeatherCondition":

@@ -13,8 +13,8 @@ from app.services.domain.dto.wind import Wind
 class Weather:
     temp: Temperature
     wind: Wind
-    humidity: float
-    pressure: float
+    humidity: float  # in range [0;1]
+    pressure: Optional[float]  # mmHg
     condition: WeatherCondition
 
 
@@ -37,7 +37,7 @@ class DayForecast(Weather):
 
 
 @dataclass
-class WeatherForecast(Weather):
+class WeatherForecast:
     provider: str
     location: Location
     days: Dict[datetime.date, DayForecast]

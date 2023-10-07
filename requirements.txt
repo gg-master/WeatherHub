@@ -2,5 +2,7 @@ flask
 requests
 bidict
 BeautifulSoup4
+lxml
 astral
 python-dotenv
+dateparser

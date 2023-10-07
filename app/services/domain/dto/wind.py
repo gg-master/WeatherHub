@@ -5,5 +5,5 @@ from app.services.domain.utils.enums import Direction
 
 @dataclass
 class Wind:
-    speed: float
+    speed: float  # m/s
     direction: Direction
