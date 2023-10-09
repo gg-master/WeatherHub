@@ -29,6 +29,12 @@ class WeatherConverter:
             winddir = Direction.SE
         elif self.wind_direction == "SW":
             winddir = Direction.SW
+        elif self.wind_direction == "W":
+            winddir = Direction.W
+        elif self.wind_direction == "E":
+            winddir = Direction.E
+        elif isinstance(self.wind_direction, int) or self.wind_direction.isdigit():
+            winddir = Direction.from_degrees(int(self.wind_direction))
         return winddir
 
     def _weather_condition(self):
@@ -76,6 +82,7 @@ class DayForecast(WeatherConverter):
             self.humidity * 0.01,
             None,
             WeatherCondition(*self._weather_condition()),
+            self.date,
             Temperature(self.min_temp, None),
             None,
             SunPosition(self.date, self.sunrise, self.sunset, self.daylength),

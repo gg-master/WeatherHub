@@ -37,7 +37,7 @@ class ForecaParser:
             time = int(row.select(".time_24h")[0].text)
             if time == 24:
                 time = 0
-            time = datetime.time()
+            time = datetime.time(time)
             symb = (
                 list(row.select(".symb")[0].children)[0]["src"]
                 .split("/")[-1]

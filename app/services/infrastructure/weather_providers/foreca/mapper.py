@@ -15,7 +15,9 @@ async def get_current(location: Location) -> Optional[DomainCurrentWeather]:
         place = place[0]
         parser.place = place
         current = await parser.get_current()
-        return current.to_domain()
+        result = current.to_domain()
+        result.location = location
+        return result
 
 
 async def get_forecast(location: Location) -> Optional[DomainWeatherForecast]:
@@ -25,10 +27,11 @@ async def get_forecast(location: Location) -> Optional[DomainWeatherForecast]:
         place = place[0]
         parser.place = place
         forecasts = await parser.get_forecast()
-        days = {}
+        days = []
         for i, forecast in enumerate(forecasts):
-            date = forecast.date
             forecasts[i] = forecast.to_domain()
             forecasts[i].hourly = await parser.get_hourly(i)
-            days[date] = forecasts[i]
+            for j, hour in enumerate(forecasts[i].hourly):
+                forecasts[i].hourly[j] = hour.to_domain()
+            days.append(forecasts[i])
         return DomainWeatherForecast("foreca", location, days)
