@@ -1,14 +1,10 @@
-import requests
 from bs4 import BeautifulSoup as bs
 from app.services.infrastructure.weather_providers.foreca.dto import *
-from typing import List
+from typing import List, Optional
 from urllib.parse import quote_plus
 import dateparser
 
-
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
-}
+from app.utils.requests import fetch_url, to_json
 
 
 class ForecaParser:
@@ -28,12 +24,13 @@ class ForecaParser:
     def place(self, place: Place):
         self._place = place
 
-    def get_hourly(self, day: int) -> List[HourForecast]:
-        r = requests.get(
-            self.HOURLY_URL.format(self._place.id, self._place.address, day),
-            headers=HEADERS,
+    async def get_hourly(self, day: int) -> List[HourForecast]:
+        status, text = await fetch_url(
+            self.HOURLY_URL.format(self._place.id, self._place.address, day)
         )
-        soup = bs(r.text, "lxml")
+        if status != 200:
+            return []
+        soup = bs(text, "lxml")
         rows = soup.select(".row")[1:]
         result = []
         for row in rows:
@@ -49,7 +46,12 @@ class ForecaParser:
             temp = int(row.select(".temp_c")[0].text)
             feels_like = int(row.select(".temp_c")[1].text)
             hum = int(row.select(".humidity")[0].text[:-1])
-            rain = float(row.select(".rain_mm")[0].text.replace(" mm", ""))
+            rain = float(
+                row.select(".rain_mm")[0]
+                .text.replace(" mm", "")
+                .replace(" cm", "")
+                .strip()
+            )
             wind_dir = list(row.select(".wind")[0].children)[0]["alt"]
             wind_speed = int(row.select(".wind_ms")[0].text)
             weather = HourForecast(
@@ -58,12 +60,13 @@ class ForecaParser:
             result.append(weather)
         return result
 
-    def get_current(self) -> CurrentWeather:
-        r = requests.get(
-            self.CURRENT_URL.format(self._place.id, self._place.address),
-            headers=HEADERS,
+    async def get_current(self) -> Optional[CurrentWeather]:
+        status, text = await fetch_url(
+            self.CURRENT_URL.format(self._place.id, self._place.address)
         )
-        soup = bs(r.text, "lxml")
+        if status != 200:
+            return None
+        soup = bs(text, "lxml")
         row = soup.select(".row")[0]
 
         symb = (
@@ -95,9 +98,11 @@ class ForecaParser:
             rain,
         )
 
-    def get_forecast(self) -> List[DayForecast]:
-        r = requests.get(self.FORECAST_URL.format(self._place.id), headers=HEADERS)
-        result = r.json()[self._place.id]
+    async def get_forecast(self) -> List[DayForecast]:
+        status, text = await fetch_url(self.FORECAST_URL.format(self._place.id))
+        if status != 200:
+            return []
+        result = to_json(text)[self._place.id]
         days = []
         for day in result:
             day = DayForecast(
@@ -116,14 +121,13 @@ class ForecaParser:
             days.append(day)
         return days
 
-    def search_place(self, city_query) -> List[Place]:
-        r = requests.get(
+    async def search_place(self, city_query) -> List[Place]:
+        status, text = await fetch_url(
             self.SEARCH_URL.format(quote_plus(city_query)),
             params={"limit": 30, "lang": "ru"},
-            headers=HEADERS,
         )
-        if r.status_code == 200:
-            result = r.json()
+        if status == 200:
+            result = to_json(text)
             places = []
             for place in result["results"]:
                 address = [

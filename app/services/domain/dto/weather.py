@@ -4,6 +4,7 @@ import datetime
 from typing import Dict, Optional
 from app.services.domain.dto.conditions import WeatherCondition
 from app.services.domain.dto.location import Location
+from app.services.domain.dto.sun import SunPosition
 
 from app.services.domain.dto.temperature import Temperature
 from app.services.domain.dto.wind import Wind
@@ -34,6 +35,7 @@ class HourlyForecast(Weather):
 class DayForecast(Weather):
     min_temp: Temperature
     hourly: Optional[HourlyForecast]
+    sun: SunPosition
 
 
 @dataclass

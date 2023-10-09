@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import datetime
 from app.services.domain.dto.location import Location
+from app.services.domain.dto.sun import SunPosition
 from app.services.domain.dto.temperature import Temperature
 from app.services.domain.dto.weather import (
     CurrentWeather as DomainCurrentWeather,
@@ -77,6 +78,7 @@ class DayForecast(WeatherConverter):
             WeatherCondition(*self._weather_condition()),
             Temperature(self.min_temp, None),
             None,
+            SunPosition(self.date, self.sunrise, self.sunset, self.daylength),
         )
 
 
