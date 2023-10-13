@@ -34,8 +34,8 @@ class EnhancedJSONEncoder(json.JSONEncoder):
 async def main():
     start = time.monotonic()
     location = Location("Волгоград", "Россия", 48.721322, 44.514226)
-    current = mapper.get_current(location)
-    forecast = mapper.get_forecast(location)
+    current = asyncio.create_task(mapper.get_current(location))
+    forecast = asyncio.create_task(mapper.get_forecast(location))
     result = await asyncio.gather(current, forecast)
     end = time.monotonic()
     print("Time:", end - start)

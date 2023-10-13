@@ -1,3 +1,4 @@
+import asyncio
 from typing import Optional
 
 from app.services.domain.dto.weather import (
@@ -28,9 +29,13 @@ async def get_forecast(location: Location) -> Optional[DomainWeatherForecast]:
         parser.place = place
         forecasts = await parser.get_forecast()
         days = []
+        hours = []
         for i, forecast in enumerate(forecasts):
             forecasts[i] = forecast.to_domain()
-            forecasts[i].hourly = await parser.get_hourly(i)
+            hours.append(parser.get_hourly(i))
+        hours = await asyncio.gather(*hours)
+        for i, forecast in enumerate(forecasts):
+            forecasts[i].hourly = hours[i]
             for j, hour in enumerate(forecasts[i].hourly):
                 forecasts[i].hourly[j] = hour.to_domain()
             days.append(forecasts[i])
