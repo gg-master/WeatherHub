@@ -1,3 +1,4 @@
+from pprint import pprint
 import sys
 import time
 import asyncio
@@ -10,7 +11,7 @@ sys.path.append("../../")
 from app.services.domain.utils.enums import Direction
 from app.services.domain.dto.conditions import WeatherCondition
 from app.services.domain.dto.location import Location
-import app.services.infrastructure.weather_providers.foreca.mapper as mapper
+from app.services.infrastructure.weather_providers import ForecaProvider, ForecaMapper
 
 
 class EnhancedJSONEncoder(json.JSONEncoder):
@@ -34,19 +35,21 @@ class EnhancedJSONEncoder(json.JSONEncoder):
 async def main():
     start = time.monotonic()
     location = Location("Волгоград", "Россия", 48.721322, 44.514226)
-    current = asyncio.create_task(mapper.get_current(location))
-    forecast = asyncio.create_task(mapper.get_forecast(location))
-    result = await asyncio.gather(current, forecast)
+    provider = await ForecaProvider.create_for(location)
+    current = provider.get_current()
+    forecast = provider.get_forecast()
+    current, forecast = await asyncio.gather(current, forecast)
     end = time.monotonic()
     print("Time:", end - start)
     with open("weather.json", "w", encoding="utf-8") as fobj:
         json.dump(
-            {"current": result[0], "forecast": result[1]},
+            {"current": current, "forecast": forecast},
             fobj,
             ensure_ascii=False,
             cls=EnhancedJSONEncoder,
             indent=4,
         )
-
+    pprint(ForecaMapper.current_to_domain(current))
+    pprint(ForecaMapper.forecast_to_domain(forecast))
 
 asyncio.run(main())

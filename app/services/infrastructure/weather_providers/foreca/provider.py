@@ -1,3 +1,4 @@
+import asyncio
 from bs4 import BeautifulSoup as bs
 from app.services.infrastructure.weather_providers.foreca.dto import *
 from typing import List, Optional
@@ -13,8 +14,11 @@ class ForecaParser:
     HOURLY_URL = "https://www.foreca.com/{}/{}/hourly?day={}"
     CURRENT_URL = "https://www.foreca.com/{}/{}"
 
-    def __init__(self):
-        self._place = None
+    @classmethod
+    async def create_for(cls, location: Location) -> "ForecaParser":
+        self = ForecaParser()
+        self._place = (await self._search_place(location.place))[0]
+        return self
 
     @property
     def place(self):
@@ -24,7 +28,7 @@ class ForecaParser:
     def place(self, place: Place):
         self._place = place
 
-    async def get_hourly(self, day: int) -> List[HourForecast]:
+    async def _get_hourly(self, day: int) -> List[HourForecast]:
         status, text = await fetch_url(
             self.HOURLY_URL.format(self._place.id, self._place.address, day)
         )
@@ -59,6 +63,36 @@ class ForecaParser:
             )
             result.append(weather)
         return result
+
+    async def _search_place(self, city_query) -> List[Place]:
+        status, text = await fetch_url(
+            self.SEARCH_URL.format(quote_plus(city_query)),
+            params={"limit": 30, "lang": "ru"},
+        )
+        if status == 200:
+            result = to_json(text)
+            places = []
+            for place in result["results"]:
+                address = [
+                    place.get("defaultName", "").replace(" ", "-"),
+                    place.get("defaultAdmName", "").replace(" ", "-"),
+                    place.get("defaultCountryName", "").replace(" ", "-"),
+                ]
+                if "" in address:
+                    address.remove("")
+                address = "-".join(address)
+                place = Place(
+                    place["id"],
+                    address,
+                    place["name"],
+                    place["countryName"],
+                    place["timezone"],
+                    place["lat"],
+                    place["lon"],
+                )
+                places.append(place)
+            return places
+        return []
 
     async def get_current(self) -> Optional[CurrentWeather]:
         status, text = await fetch_url(
@@ -97,14 +131,17 @@ class ForecaParser:
             wind_dir,
             rain,
         )
-
+   
     async def get_forecast(self) -> List[DayForecast]:
         status, text = await fetch_url(self.FORECAST_URL.format(self._place.id))
         if status != 200:
             return []
         result = to_json(text)[self._place.id]
         days = []
-        for day in result:
+        hours = await asyncio.gather(*[
+           self._get_hourly(i) for i in range(len(result))
+        ])
+        for i, day in enumerate(result):
             day = DayForecast(
                 dateparser.parse(day["date"]).date(),
                 day["tmin"],
@@ -117,36 +154,7 @@ class ForecaParser:
                 dateparser.parse(day["sunrise"]).time(),
                 dateparser.parse(day["sunset"]).time(),
                 int(day["daylen"]),
+                hourly=hours[i]
             )
             days.append(day)
         return days
-
-    async def search_place(self, city_query) -> List[Place]:
-        status, text = await fetch_url(
-            self.SEARCH_URL.format(quote_plus(city_query)),
-            params={"limit": 30, "lang": "ru"},
-        )
-        if status == 200:
-            result = to_json(text)
-            places = []
-            for place in result["results"]:
-                address = [
-                    place.get("defaultName", "").replace(" ", "-"),
-                    place.get("defaultAdmName", "").replace(" ", "-"),
-                    place.get("defaultCountryName", "").replace(" ", "-"),
-                ]
-                if "" in address:
-                    address.remove("")
-                address = "-".join(address)
-                place = Place(
-                    place["id"],
-                    address,
-                    place["name"],
-                    place["countryName"],
-                    place["timezone"],
-                    place["lat"],
-                    place["lon"],
-                )
-                places.append(place)
-            return places
-        return []

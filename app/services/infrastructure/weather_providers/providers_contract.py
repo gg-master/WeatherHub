@@ -1,26 +1,32 @@
 from abc import abstractmethod
 from dataclasses import dataclass
-from typing import Optional, Protocol
+from typing import Optional, Protocol, Any
+from app.services.domain.dto.location import Location
 
-
-@dataclass
-class Location:
-    place: str
-    country: str
-    lat: float
-    long: float
+from app.services.domain.dto.weather import CurrentWeather, WeatherForecast
 
 
 class WeatherProvider(Protocol):
-    # TODO этот метод должен быть публичным?
     @abstractmethod
-    def _find_place(self, query: str) -> Optional[Location]:
+    async def create_for(self, location: Location) -> Optional[Location]:
         ...
 
     @abstractmethod
-    def get_current(self, location: Location) -> 'CurrentWeather':
+    async def get_current(self) -> 'CurrentWeather':
         ...
 
     @abstractmethod
-    def get_forecast(self, location: Location) -> 'WeatherForecast':
+    async def get_forecast(self) -> 'WeatherForecast':
+        ...
+
+
+class ProviderMapper(Protocol):
+    @abstractmethod
+    def current_to_domain(self, current: 'CurrentWeather') -> CurrentWeather:
+        ...
+
+    @abstractmethod
+    def forecast_to_domain(
+        self, forecast: 'WeatherForecast'
+    ) -> WeatherForecast:
         ...
