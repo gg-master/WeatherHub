@@ -1,9 +1,7 @@
-import asyncio
 from typing import List, Optional
 
 from app.services.domain.dto.conditions import WeatherCondition
 from app.services.domain.dto.temperature import Temperature
-from app.services.domain.dto.location import Location
 from app.services.domain.dto.wind import Wind
 from app.services.domain.dto.sun import SunPosition
 from app.services.domain.dto.weather import (

@@ -1,6 +1,5 @@
 from abc import abstractmethod
-from dataclasses import dataclass
-from typing import Optional, Protocol, Any
+from typing import Optional, Protocol
 from app.services.domain.dto.location import Location
 
 from app.services.domain.dto.weather import CurrentWeather, WeatherForecast
