@@ -1,8 +1,12 @@
-import logging
+from typing import List
+
 from app.services.domain.contract.usecase_command import UseCaseCommand
-from app.services.domain.contract.weather_repository import IWeatherRepository
+from app.services.domain.dto.location import Location
+
+from app.services.domain.dto.weather import CurrentWeather
 
 
 class GetCurrentForecast(UseCaseCommand):
-    def execute(self):
-        ...
+    async def execute(self, location: Location) -> List[CurrentWeather]:
+        return await self._repository.get_current_weathers(location)
+        

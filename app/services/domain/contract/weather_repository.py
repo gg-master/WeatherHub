@@ -7,9 +7,9 @@ from app.services.domain.dto.weather import CurrentWeather, WeatherForecast
 
 class IWeatherRepository(ABC):
     @abstractmethod
-    def get_current_weathers(self, location: Location) -> List[CurrentWeather]:
+    async def get_current_weathers(self, location: Location) -> List[CurrentWeather]:
         raise NotImplementedError
 
     @abstractmethod
-    def get_forecasts(self, location: Location) -> List[WeatherForecast]:
+    async def get_forecasts(self, location: Location) -> List[WeatherForecast]:
         raise NotImplementedError

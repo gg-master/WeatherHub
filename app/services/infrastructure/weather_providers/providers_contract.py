@@ -7,7 +7,7 @@ from app.services.domain.dto.weather import CurrentWeather, WeatherForecast
 
 class WeatherProvider(Protocol):
     @abstractmethod
-    async def create_for(self, location: Location) -> Optional[Location]:
+    async def create_for(self, location: Location) -> 'WeatherProvider':
         ...
 
     @abstractmethod

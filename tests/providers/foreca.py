@@ -49,7 +49,7 @@ async def main():
             cls=EnhancedJSONEncoder,
             indent=4,
         )
-    pprint(ForecaMapper.current_to_domain(current))
-    pprint(ForecaMapper.forecast_to_domain(forecast))
+    # pprint(ForecaMapper.current_to_domain(current))
+    # pprint(ForecaMapper.forecast_to_domain(forecast))
 
 asyncio.run(main())

@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 
 from app.services.domain.dto.conditions import WeatherCondition
 from app.services.domain.dto.temperature import Temperature
@@ -16,9 +16,6 @@ from app.services.infrastructure.weather_providers.foreca.dto import (
     DayForecast,
     HourForecast,
     WeatherConverter as WC,
-)
-from app.services.infrastructure.weather_providers.foreca.provider import (
-    ForecaParser,
 )
 
 
