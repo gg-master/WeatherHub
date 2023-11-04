@@ -1,8 +1,4 @@
-from collections import namedtuple
-import datetime
-import time
 from flask import render_template
-from numpy import append
 from app.controllers.views import form_blocks
 from app.services.domain.dto.location import Location
 
@@ -18,3 +14,7 @@ async def index():
     tenday = await GetTendayForecast(WeatherRepository()).execute(location)
     blocks = form_blocks(current, tenday, location)
     return render_template("index.html", weather_forecast=blocks)
+
+
+async def hourly():
+    return render_template("hourly.html")

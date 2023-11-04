@@ -14,11 +14,11 @@ class SunPositionService:
             longitude=location.long)
     
     def sunset(self, date: datetime.date) -> Optional[datetime.datetime]:
-        result = astral.sun.sun(self._observer, date)
+        result = astral.sun.sun(self._observer, date, tzinfo=None)
         return result.get("sunset")
     
     def sunrise(self, date: datetime.date) -> Optional[datetime.datetime]:
-        result = astral.sun.sun(self._observer, date)
+        result = astral.sun.sun(self._observer, date, tzinfo=None)
         return result.get("sunrise")
     
     def daylength(self, date: datetime.date) -> Optional[datetime.timedelta]:

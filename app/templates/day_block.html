@@ -3,7 +3,7 @@
 {% macro show_block(block) %}
 <aside id="aside" style="margin-top: 31px;">
     <p><b class="day">{{block.day_rel}}</b> <span class="date">{{block.date_info}}</span> <span class="time">{{block.time_info}}</span> <span class="city">{{ block.city_in }}</span></p>
-    <a href="/hourly/{{block.city_id}}"><h6>Почасовой прогноз</h6></a>
+    <a href="/hourly?name={{block.location.place}}&country={{block.location.country}}"><h6>Почасовой прогноз</h6></a>
     <br>
         {% for i, card in block.cards %}
             {{show_card(i, card)}}
