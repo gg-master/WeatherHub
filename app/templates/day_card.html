@@ -1,0 +1,33 @@
+{% macro show_card(i, card) %}
+{% if i == 0 %}
+<span class="card first">
+{% else %}
+<span class="card">
+{% endif %}
+        <div>
+            <article>
+                <h1 class="temp">{{card.temp.real}}°C</h1>
+                <h5>Ощущается как <c class="feelsLike">{{card.temp.feel}}°C</c></h5>
+            </article>
+            <img src="img/sunwithcloud.png" alt="" class="sunwithcloud">
+            <h2 class="description">{{card.condition}}</h2>
+            <span class="span1">
+                <img src="img/GroupVeter.svg" alt="">
+                <h4 class="wind">{{card.wind.speed}} м/с, {{card.wind.direction}} <d class="gust">порывы до 4 м/с</d></h4>
+                <img src="img/GroupStolb.svg" alt="" style="margin-top: 13px;">
+                <h4 style="position: relative; top: -5px;" class="presureMm">{{card.pressure}} мм рт. ст.</h4>
+                <img src="img/GroupWater.svg" alt="" style="margin-top: 13px;">
+                <h4 style="position: relative; top: -5px;" class="presurePer">{{card.humidity * 100}}% / 0 мм</h4>
+            </span>
+            <span class="span2" style="width: 121px;height: 132px;margin-left: 9px; margin-top: 0; position: relative; top: -5px;">
+                <img src="img/icons8-sunrise-arcade-96 1.png" alt="" >
+                <h3 class="sunrise">{{card.sun.sunrise}}</h3>
+                <img src="img/icons8-sun-96 1.png" alt="" >
+                <h3 class="sunLength">{{card.sun.daylength}}:00</h3>
+                <img src="img/icons8-sunset-96 1.png" alt="" >
+                <h3 class="sunset">{{card.sun.sunset}}</h3>
+            </span>
+        </div>
+        <p>Ист.: <span class="weatherSource">источник</span> <w>обн. </w></p>
+    </span>
+{% endmacro %}

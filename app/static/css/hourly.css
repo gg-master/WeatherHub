@@ -1,0 +1,110 @@
+article {
+    width: 976px;
+    height: 89.982px;
+    flex-shrink: 0;
+    margin: 0 auto 14px;
+    transition: 0.5s;
+}
+
+.line {
+    width: 100%;
+    height: 76px;
+    background: #C8E4FEB2;
+    border-radius: 15px;
+    vertical-align: top;
+}
+
+article p {
+    color: #000;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 11.982px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+    width: 100%;
+    text-align: left;
+    margin: 0;
+    margin-left: 9px;
+}
+
+article .arrowLeft {
+    margin: 0;
+    margin-top: 26px;
+    margin-left: 13px;
+}
+
+article span {
+    width: 876px;
+    height: 76px;
+    margin: 0;
+    margin-left: 13px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+article .weatherSource {
+    margin-left: 0;
+    height: 12px;
+}
+
+span div {
+    display: inline-block;
+}
+
+.hour {
+    height: 66px;
+    width: auto;
+    margin: 0;
+    margin-top: 5px;
+    margin-left: 8px;
+    text-align: center;
+}
+
+.hour h2 {
+    color: #000;
+    text-align: center;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+.hour img {
+    margin: 0;
+}
+
+.moreDownLine {
+    margin: 0 auto;
+    display: block;
+}
+
+.mobileMoreDownLine {
+    margin: 0 auto;
+    display: none;
+}
+
+.article2, .article4, .article6 {
+    display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    article {
+        width: 270px;
+    }
+
+    article span {
+        width: 190px;
+        margin-left: 5px;
+    }
+
+    article .arrowLeft {
+        margin-left: 9px;
+    }
+
+    .article1, .article2, .article3, .article4, .article5, .article6{
+        display: none;
+    }
+}

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/buttonsMenu.css">
+    <link rel="stylesheet" href="css/hourly.css">
+    <meta name="theme-color" content="#000000"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C700"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Imprima%3A400"/>
+    <title>tenDaysForecast</title>
+</head>
+<body>
+    <div class="menu" id="menu">
+        <a href=""><h2 style="vertical-align: top;">Weather</h2></a>
+        <a href=""><h3 class="hub" style="margin: 0;">hub</h3></a>
+        <select class="language">
+            <option value="Ru">Ru</option>
+            <option value="En">En</option>
+        </select>   
+        <hr>
+        <h2>Настройки</h2>
+        <h4>Предпочтительный источник</h4>
+        <select>
+            <option>Яндекс. Погода</option>
+            <option>Foreca</option>
+            <option>OpenWeatherMap</option>
+        </select>
+        <h4>Температура</h4>
+        <h4>Время</h4>
+        <div class="button b2" id="button-10">
+            <input type="checkbox" class="checkbox" />
+            <div class="knobs">
+                <span>F°</span>
+            </div>
+        </div>
+        <div class="button b2 b11" id="button-11">
+            <input type="checkbox" class="checkbox" />
+            <div class="knobs">
+                <span>12ч</span>
+            </div>
+        </div>
+        <h4>Осадки</h4>
+        <div class="button b2 b12" id="button-12">
+            <input type="checkbox" class="checkbox" />
+            <div class="knobs">
+                <span>in</span>
+            </div>
+        </div>
+        <h4>Скорость ветра</h4>
+        <div class="speedRadioButton" id="speedRadioButton">
+            <input type="radio" name="speedRadio" id="mph" value="mph"/>
+            <label for="mph" style="margin-left: 34px;">mph</label>
+            <input type="radio" name="speedRadio" id="kmh" value="kmh"/>
+            <label for="kmh">kmh</label>
+            <input type="radio" name="speedRadio" id="ms" value="ms" checked="checked"/>
+            <label for="ms">m/s</label>
+            <input type="radio" name="speedRadio" id="Bft" value="Bft"/>
+            <label for="Bft">Bft</label>
+        </div>
+        <h4>Давление</h4>
+        <div class="pressureRadioButton" id="pressureRadioButton">
+            <input type="radio" name="pressureRadio" id="inHg" value="inHg"/>
+            <label for="inHg" style="width: 48px; margin-left: 34px;">inHg</label>
+            <input type="radio" name="pressureRadio" id="hPa" value="hPa" checked="checked"/>
+            <label for="hPa" style="width: 48px;">hPa</label>
+            <input type="radio" name="pressureRadio" id="mmHg" value="mmHg"/>
+            <label for="mmHg" style="width: 64px;">mmHg</label>
+        </div>
+        <hr>
+        <h2 style="width: 193px; display: block;">Прогнозы погоды</h2>
+        <img src="img/ten_dforecast_icon.svg" alt="" class="icons">
+        <a href="index.html" ><h5 style="margin-left: 0;">Прогноз на 10 дней</h5></a>
+        <img src="img/hours_forecast_icon.svg" style="margin-top: 12px; margin-left: 27px;">
+        <a href="secondPage.html"><h5 style="margin-top: 15px; margin-left: 0; color: #DD0000;">Почасовой прогноз</h5></a>
+        <hr>
+        <h2 style="width: 193px; display: block;">Избранные города</h2>
+        <a class="addCurrent" type="button">Добавить текущий</a>
+        <ul>
+            <li><p>Волгоград</p><img src="img/minus.svg" alt=""></li>
+            <li><p>Москва</p><img src="img/minus.svg" alt=""></li>
+        </ul>
+    </div>
+    <header>
+        <section class="header">
+            <a type="button" class="menuButton" id="menuButton"><img src="img/Vector.svg" alt="" class="vector"></a>
+            <a href=""><h2>Weather</h2></a>
+            <a href=""><h3>hub</h3></a>
+            <a href="index.html"><h5>Прогноз на 10 дней</h5></a>
+            <a href=""><h4>Почасовой прогноз</h4></a>
+            <form class="form" id="form">
+                <input id="inputCity" class="input" type="text" placeholder="Ваш город">
+                <ul class="options">
+                </ul>
+            </form>
+            <a href="https://github.com/gg-master/WeatherHub" class="githubHeader"><img src="img/Github icon.svg" alt=""></a>
+            <a href="https://github.com/gg-master/WeatherHub"><h6>GitHub</h6></a>
+        </section>
+    </header>
+    <main>
+        <section class="main">
+            <aside style="margin-top: 31px;">
+                <p><b class="day">Сегодня</b> <z class="date">5 сентября</z> <y class="time">15:00</y> <b class="city">в Волгограде</b></p>
+                <a href="index.html" ><h6>Дневной прогноз</h6></a>
+                <article>
+                    <div class="line">
+                        <img src="img/arrow-left-circle-line 1.svg" alt="" class="arrowLeft" type="button" id="btnPrev0">
+                        <span class="slider" id="slider0">
+                                <div class="hour">
+                                    <h2 class="time">0:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">1:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">2:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">3:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">4:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">5:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">0:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">1:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">2:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">3:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">4:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">5:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">0:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">1:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">2:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">3:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">4:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">5:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">0:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">1:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">2:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">3:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">4:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                                <div class="hour">
+                                    <h2 class="time">5:00</h2>
+                                    <img class="condition" src="img/image 2.png" alt>
+                                    <h2 class="temp">+23°</h2>
+                                </div>
+                        </span>
+                        <img src="img/arrow-right-circle-line 1.svg" alt="" class="arrowRight"  type="button" id="btnNext0">
+                    </div>
+                    <p>Ист.: <span class="weatherSource">Яндекс. Погода <w>обн. 14:30</w></span></p>
+                </article>
+                <article>
+                    <div class="line">
+                        <img src="img/arrow-left-circle-line 1.svg" alt="" class="arrowLeft" type="button" id="btnPrev1">
+                        <span class="slider" id="slider1">
+                            <div class="hour">
+                                <h2 class="time">0:00</h2>
+                                <img class="condition" src="img/image 2.png" alt>
+                                <h2 class="temp">+23°</h2>
+                            </div>
+                        </span>
+                        <img src="img/arrow-right-circle-line 1.svg" alt="" class="arrowRight"  type="button" id="btnNext1">
+                    </div>
+                    <p>Ист.: <span class="weatherSource">Foreca <w>обн. 14:30</w></span></p>
+                </article>
+                <article>
+                    <div class="line">
+                        <img src="img/arrow-left-circle-line 1.svg" alt="" class="arrowLeft" type="button" id="btnPrev2">
+                        <span class="slider" id="slider2">
+                            <div class="hour">
+                                <h2 class="time">0:00</h2>
+                                <img class="condition" src="img/image 2.png" alt>
+                                <h2 class="temp">+23°</h2>
+                            </div>
+                        </span>
+                        <img src="img/arrow-right-circle-line 1.svg" alt="" class="arrowRight"  type="button" id="btnNext2">
+                    </div>
+                    <p>Ист.: <span class="weatherSource">OpenWeatherMap <w>обн. 14:30</w></span></p>
+                </article>
+                <img src="img/more_btn.svg" alt="" type="button" class="moreDownLine">
+            </aside>
+            <aside>
+                <p class="anotherDayLine"><b class="day">Завтра</b> <z class="date">6 сентября</z></p>
+                <a href="index.html" ><h6>Дневной прогноз</h6></a>
+                <article>
+                    <div class="line">
+                        <img src="img/arrow-left-circle-line 1.svg" alt="" class="arrowLeft" type="button" id="btnPrev4">
+                        <span class="slider" id="slider4">
+                            <div class="hour">
+                                <h2 class="time">0:00</h2>
+                                <img class="condition" src="img/image 2.png" alt>
+                                <h2 class="temp">+23°</h2>
+                            </div>
+                        </span>
+                        <img src="img/arrow-right-circle-line 1.svg" alt="" class="arrowRight"  type="button" id="btnNext4">
+                    </div>
+                    <p>Ист.: <span class="weatherSource">Яндекс. Погода <w>обн. 14:30</w></span></p>
+                </article>
+                <article>
+                    <div class="line">
+                        <img src="img/arrow-left-circle-line 1.svg" alt="" class="arrowLeft" type="button" id="btnPrev5">
+                        <span class="slider" id="slider5">
+                            <div class="hour">
+                                <h2 class="time">0:00</h2>
+                                <img class="condition" src="img/image 2.png" alt>
+                                <h2 class="temp">+23°</h2>
+                            </div>
+                        </span>
+                        <img src="img/arrow-right-circle-line 1.svg" alt="" class="arrowRight"  type="button" id="btnNext5">
+                    </div>
+                    <p>Ист.: <span class="weatherSource">Foreca <w>обн. 14:30</w></span></p>
+                </article>
+                <article>
+                    <div class="line">
+                        <img src="img/arrow-left-circle-line 1.svg" alt="" class="arrowLeft" type="button" id="btnPrev6">
+                        <span class="slider" id="slider6">
+                            <div class="hour">
+                                <h2 class="time">0:00</h2>
+                                <img class="condition" src="img/image 2.png" alt>
+                                <h2 class="temp">+23°</h2>
+                            </div>
+                        </span>
+                        <img src="img/arrow-right-circle-line 1.svg" alt="" class="arrowRight"  type="button" id="btnNext6">
+                    </div>
+                    <p>Ист.: <span class="weatherSource">OpenWeatherMap <w>обн. 14:30</w></span></p>
+                </article>
+                <img src="img/more_btn.svg" alt="" type="button" class="moreDownLine">
+            </aside>
+        </section>
+    </main>
+    <footer>
+        <section class="footer">
+            <hr>
+                <div class="first">
+                    <h4 class="weather" >Weather</h4>
+                    <h3>hub</h3>
+                    <p>Made with love</p> 
+                    <img src="img/heart-line 1.svg" class="icons" >
+                </div>
+                <div class="second">
+                    <h4>Прогнозы погоды</h4>
+                    <img src="img/ten_dforecast_icon.svg" alt="" class="icons" style="position: relative; top:-2px;">
+                    <a href="index.html"><p >Прогноз на 10 дней</p></a>
+                    <img src="img/hours_forecast_icon.svg" style="position: relative; top:-3px;">
+                    <a href=""><p style="color: #DD0000;">Почасовой прогноз</p></a>
+                </div>
+                <div class="third">
+                    <h4>Социальные сети</h4>
+                
+                    <a href="https://github.com/gg-master/WeatherHub"><img src="img/Github icon.svg" alt="" class="githubFooter"></a>
+                    <a href="https://github.com/gg-master/WeatherHub"><p style="color:black;font-weight: 700;">GitHub</p></a>
+                </div>
+            <hr class="hr2">
+            <h4>Copyright © 2023</h4>
+        </section>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/hourly.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

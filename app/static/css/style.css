@@ -1,0 +1,967 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background-color: #ECF4FC82;
+}
+
+header {
+    margin: 0;
+    height: 64px;
+    width: 100vw;
+    background-color: #168FFF33;
+    display: flex;
+}
+.header {
+    max-width: 1440px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.vector {
+    margin: 0;
+    display: inline-block;
+    transition: 500ms;
+}
+
+.menuButton {
+    cursor: pointer;
+    margin-left: 48px;
+}
+
+.menu {
+    height: 100vh;
+    min-height: 1500px;
+    width: 300px;
+    background: linear-gradient(0deg, #C8E4FE 0%, #C8E4FE 100%), #FFF;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 2;
+    display: none;
+    transition: 1s;
+}
+
+.menu h2 {
+    margin: 21px 0 0 24px;
+    color: #002586;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 20px;
+    width: 79px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.menu .hub {
+    margin: 0;
+}
+
+.menu .language {
+    width: 50px;
+    height: 24px;
+    color: #002586;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-bottom: solid 2px #002586;
+    display: inline-block;
+    margin: 0;
+    margin-top: 21px;
+    margin-left: 66px;
+    background-color: #C8E4FE;
+    text-align: left;
+}
+
+.menu hr {
+    width: 254px;
+    margin: 0;
+    margin-left: 22px;
+    margin-top: 21px;
+}
+
+.menu h4 {
+    color: #002586;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    margin-left: 29px;
+    margin-top: 10px;
+    display: inline-block;
+
+}
+
+.menu select {
+    width: 230px;
+    height: 24px;
+    color: #002586;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: 2px;
+    margin: 0;
+    margin-left: 34px;
+    margin-top: 8px;
+
+}
+
+.menu img {
+    margin: 0;
+    margin-left: 29px;
+    margin-top: 13px;
+}
+
+.menu h5 {
+    color: #002586;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+    width: 200px;
+    height: 21px;
+    margin-top: 13px;
+}
+
+.menu .addCurrent {
+    text-decoration: none;
+    width: 240px;
+    height: 30px;
+    background-color: #0047FF;
+    color: #fff;
+    font-size: 18px;
+    line-height: 30px;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    display: block;
+    margin: 12px auto 0;
+    border-radius: 5px;
+    text-align: center;
+}
+.menu ul {
+    list-style-type: none;
+    margin: 12px 0;
+    width: 242px;
+    margin-left: 29px;
+    padding: 0;
+}
+
+.menu ul li {
+    display: block;
+    width: 238px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-bottom: 13px;
+    text-align: right;
+}
+
+.menu ul li p {
+    display: inline-block;
+    color: #002586;
+    font-family: Arial;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+    margin: 0;
+    line-height: 30px;
+    vertical-align: middle;
+    margin-left: 20px;
+    width: 180px;
+    text-align: left;
+}
+
+.menu ul li img {
+    margin: 0;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+header h2, .footer h2  {
+    height: 23px;
+    color: #002586;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 20px;
+    width: 79px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    margin-left: 48px;
+}
+
+header h3, .footer h3, .hub {
+    width: 51px;
+    height: 29px;
+    margin: 0;
+    display: inline-block;
+    border-radius: 10px;
+    background: #0047FF;
+    color: #FFF;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+    padding-top: 5px;
+    margin-left: 2px;
+}
+
+header h4 {
+    color: #D00;
+    margin: 0;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 16px;
+}
+
+
+header h5 {
+    color: #002586;
+    margin: 0;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 16px;
+}
+
+header input {
+    margin: 0;
+    margin-left: 19px;
+    width: 590px;
+    height: 38px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.20) inset;
+    border-color: none;
+    border-radius: 20px;
+    border: solid 0px #000;
+    background-color: #FBFAFA;
+    color: #939393;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.6px;
+    padding-left: 20px;
+    background-image: url('../img/Lupa.svg');
+    background-position: 570px 9px;
+    background-repeat: no-repeat;
+}
+
+
+
+.githubHeader {
+    margin: 0;
+    margin-left: 82px;
+}
+
+header h6 {
+    margin: 0;
+    color: #000;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    width: 54px;
+    height: 18px;
+    margin-top: 2.5px;
+}
+
+main {
+    width: 100vw;
+    margin: 0;
+    display: flex;
+}
+
+.main {
+    max-width: 1440px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.main aside {
+    width: 1036px;
+    min-height: 332px;
+    flex-shrink: 0;
+    margin-top: 24px;
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.25);
+}
+
+aside p {
+    margin: 0;
+    display: inline-block;
+    color: #000;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: lowercase;
+    margin-top: 15px;
+    margin-left: 42px;
+    margin-bottom: 15px;
+    max-width: 100%;
+}
+
+aside p b {
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform:initial;
+}
+
+aside p y {
+    color: #7D7D7D;
+    text-transform: capitalize;
+}
+
+aside h6 {
+    color: #787878;
+    font-family: Imprima, 'Source Sans Pro';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+    text-transform: lowercase;
+    float: right;
+    margin: 0;
+    margin-top: 21px;
+    margin-right: 42px;
+}
+
+.card {
+    display: inline-block;
+    width: 305px;
+    height: 251.631px;
+    flex-shrink: 0;
+    margin: 0;
+    margin-left: 30px;
+    transition: 0.5s;
+}
+
+.card div {
+    display: inline-flex;
+    flex-flow: row wrap;
+    width: 100%;
+    height: 216.889px;
+    /* justify-content: center;
+    align-items: center; */
+    flex-shrink: 0;
+    border-radius: 9.985px;
+    background: linear-gradient(104deg, rgba(194, 221, 246, 0.61) 9.95%, rgba(194, 221, 246, 0.12) 98.63%);
+    box-shadow: 2.9956px 2.9956px 3.99414px -1.99707px rgba(0, 0, 0, 0.25);
+}
+
+.card div h1 {
+    display: inline-block;
+    color: #D00;
+    width: 103.848px;
+    height: 39.941px;
+    flex-shrink: 0;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 39.941px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -2.396px;
+    text-transform: capitalize;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 11px;
+}
+
+.card .sunwithcloud {
+    width: 60px;
+    height: 59.912px;
+    flex-shrink: 0;
+    margin: 0;
+    margin-left: 8px;
+    margin-top: 4px;
+}
+
+.card h2 {
+    display: inline-block;
+    width: 109px;
+    height: 39.941px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #000;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 15.977px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    margin-top: 17px;
+}
+.card h5 {
+    display: block;
+    height: 12.981px;
+    flex-shrink: 0;
+    color: #000;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 10.984px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.439px;
+    margin: 0;
+    margin-left: 12px;
+    margin-top: 4px;
+}
+
+.card c {
+    color: #E3303D;
+}
+
+.card div span {
+    display: inline-block;
+    width: 140px;
+    height: 112.431px;
+    flex-shrink: 0;
+    margin: 0;
+    margin-top: 13px;
+    margin-left: 16px;
+}
+
+.card span img {
+    display: inline-block;
+    margin: 0;
+}
+
+.card span h3 {
+    display: inline-block;
+    margin: 0;
+    color: #000;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 15.977px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 74.8%; /* 11.95px */
+    text-transform: lowercase;
+    position: relative;
+    top: -15px;
+}
+
+.card h4 {
+    height: 18.4px;
+    margin: 0;
+    width: 108px;
+    display: inline-block;
+    color: #000;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 15.977px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 12px;
+    text-transform: lowercase;
+}
+
+.card d {
+    color: #636161;
+    font-family: Arial;
+    font-size: 11.982px;
+    font-style: normal;
+    font-weight: 400;
+    text-transform: lowercase;
+}
+
+.card p {
+    
+    margin: 0;
+    margin-left: 9px;
+    color: #000;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 11.982px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+w {
+    color: #7D7D7D;
+    text-transform: lowercase;
+}
+
+aside .moreDown {
+    display: block;
+    margin: 0 auto;
+}
+
+footer {
+    width: 100vw;
+    height: 223px;
+}
+
+.footer {
+    margin: 40px auto 64px;
+    max-width: 1200px;
+    height: 100%;
+    vertical-align: top;
+}
+
+hr {
+    border: 1px solid #0047FF;
+    margin: 0;
+}
+
+.mobileMoreDown {
+    display: none;
+}
+
+.footer div {
+    display: inline-block;
+    margin-top: 15px;
+    height: 100%;
+    vertical-align: top;
+}
+.footer h4 {
+    display: inline-block;
+    color: #002586;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+    margin-left: 517px;
+    margin-top: 13px;
+}
+
+.footer .first {
+    width: 140px;
+    margin-left: 227px;
+}
+.footer .first h4 {
+    margin: 0;
+}
+.footer .first p {
+    margin-top: 3px;
+}
+.footer .first img {
+    margin-top: 6px;
+}
+.footer .second {
+    width: 195px;
+    margin-left: 120px;
+}
+.footer .second h4 {
+    margin: 0;
+    width: 100%;
+}
+.footer .second img {
+    margin: 0;
+    margin-left: 6px;
+    margin-top: 8px;
+}
+.footer .second p, .footer .second a {
+    margin-top: 7px;
+}
+.footer .third {
+    width: 178px;
+    margin-left: 120px;
+}
+.footer .third h4 {
+    margin: 0;
+}
+.footer .third p {
+    margin-top: 12px;
+    font-size: 16px;
+}
+.footer .third img {
+    margin-top: 6px;
+}
+/* .footer .weather {
+    margin-left: 227.5px; 
+    width: 79px;
+} */
+
+.footer p {
+    color: #002586;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    display: inline-block;
+    height: 21px;
+    vertical-align: top;
+    /* margin-top: 6px; */
+}
+.footer .icons {
+    margin: 0;
+    /* margin-left: 120px; */
+    position: relative;
+    top: -5px;
+}
+
+.footer .githubFooter {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.show {
+    transition: 1s;
+    display: block;
+}
+
+.showHour {
+    display: inline-block;
+}
+
+.hide {
+    display: none;
+}
+
+.delete {
+    display: none;
+}
+
+.moreUp {
+    display: block;
+    margin: 0 auto;
+}
+
+.h2 {
+    margin-top: 85px;
+}
+
+.mobileMoreUp {
+    display: none;
+}
+.mobileMoreDown {
+    display: none;
+}
+.form {
+    width: 590px;
+    height: 38px;
+}
+.options {
+    margin: 0;
+    margin-left: 19px;
+    padding: 0;
+    position: relative;
+    z-index: 4;
+}
+.options li {
+    background-color: white;
+    list-style: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
+    margin: 0;
+    padding: 18px;
+    text-transform: capitalize;
+}
+
+.hl {
+    background-color: #0047FF;
+}
+
+@media screen and (max-width: 1440px) {
+    .header {
+        width: 1000px;
+    }
+    .menuButton {
+        margin-left: 20px;
+    }
+    header h2 {
+        margin-left: 30px;
+    }
+    header h4 {
+        width: 100px;
+    }
+    header input {
+        width: 390px;
+        background-position: 370px 9px;
+    }
+    .githubHeader {
+        margin-left: 35px;
+    }
+    header h6 {
+        margin-right: 20px;
+    }
+    .main {
+        width: 1000px;
+    }
+    .main aside {
+        width: 1000px;
+    }
+    .card {
+        margin-left: 19px;
+    }
+    .footer {
+        width: 1000px;
+    }
+    .footer .first {
+        margin-left: 124px;
+    }
+    .footer h4 {
+        margin-left: 418px;
+    }
+}
+
+
+@media screen and (max-width: 1000px) {
+    .header {
+        width: 360px;
+    }
+    .header h2, .header h3, .header h4, .header h5, .header h6, .githubHeader {
+        display: none;
+    }
+    .menuButton {
+        margin: auto 0 auto 22px;
+    }
+    .form {
+        width: 256px;
+    }
+    .header input {
+        width: 256px;
+        height: 34px;
+        background-position: 241px 8px;
+    }
+    .main {
+        width: 360px;
+    }
+    .main aside {
+        width: 320px;
+        min-height: 270px;
+        margin: 0;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    .card {
+        width: 270px;
+        height: 210px;
+        margin-left: 25px;
+        margin-top: 17px;
+    }
+    .card.first {
+        margin-top: 0;
+    }
+    .card div {
+        height: 192px;
+    }
+    .card .sunwithcloud {
+        margin-left: 4px;
+        width: 53px;
+        height: 53px;
+    }
+    .card h2 {
+        color: #000;
+        width: 96.492px;
+        height: 35.358px;
+        font-size: 14.143px;
+    }
+    .card h5 {
+        width: 94.721px;
+        height: 11.491px;
+        font-size: 9.723px;
+        letter-spacing: -0.389px;
+        margin-left: 10px;
+    }
+    .card div h1 {
+        width: 91.931px;
+        height: 35.358px;
+        font-size: 35.358px;
+        letter-spacing: -2.121px;
+        text-transform: capitalize;
+        margin-left: 8px;
+        margin-top: 8px;
+    }
+    .card div .span1 {
+        width: 121.259px;
+        height: 99.529px;
+        margin-left: 14px;
+    }
+    .card div .span2 {
+        width: 105px;
+        height: 116px;
+    }
+    .card h4 {
+        width: 95.313px;
+        height: 16.253px;
+        font-size: 14.143px;
+    }
+    .card span h3 {
+        width: 70px;
+        font-size: 14.143px;
+    }
+    .card .span1 img {
+        width: 21px;
+        height: 17px;
+        display: inline-block;
+    }
+    .card .span2 img {
+        width: 35.358px;
+        height: 35.358px;
+        display: inline-block;
+    }
+    .card d {
+        font-size: 10px;
+    }
+    .card p {
+        height: 10.6px;
+        font-size: 10.6px;
+        margin-top: 3px;
+    }
+    
+    aside p {
+        font-size: 14px;
+        width: 190px;
+        height: 31px;
+        vertical-align: top;
+        margin-left: 25px;
+        margin-top: 8px;
+        margin-bottom: 10px;
+    }
+    aside .anotherDay {
+        width: 164px;
+        height: 16px;
+        margin-top: 13px;
+        margin-bottom: 13px;
+    }
+    aside .anotherDayLine {
+        margin-top: 19px;
+        margin-bottom: 19px;
+        height: 13px;
+    }
+    aside p b {
+        font-size: 16px;
+    }
+    aside p y {
+        font-size: 14px;
+    }
+
+    aside h6 {
+        width: 62px;
+        font-size: 10px;
+        margin-right: 26px;
+        margin-top: 14px;
+        text-align: right;
+    }
+    aside .hourForecast {
+        margin-top: 9px;
+    }
+    aside .moreDown {
+        height: 25px;
+    }
+    .footer {
+        width: 320px;
+        margin-bottom: 25px;
+    }
+    .footer hr {
+        width: 320px;
+        margin: 0 auto;
+
+    }
+    .footer h4 {
+        margin: 0;
+        font-size: 16px;
+        margin-left: 102px;
+        margin-top: 13px;
+        font-size: 14px;
+    }
+    .footer .weather {
+        margin-left: 42px;
+        margin-top: 16px;
+        width: 63px;
+    }
+    .footer .first {
+        width: 250px;
+        margin: 16px 42.5px 0;
+        height: 23px;
+        vertical-align: top;
+    }
+
+    .footer .first h4 {
+        font-size: 16px;
+    }
+    .footer .first h3 {
+        width: 40px;
+        height: 23px;
+        font-size: 16px;
+    }
+    .footer .first p {
+        font-size: 14px;
+        margin-left: 6px;
+        vertical-align: middle;
+    }
+    .footer .first img {
+        vertical-align: middle;
+    }
+    .footer .second {
+        width: 295px;
+        height: 42px;
+        margin: 15px 35px 0 0;
+        text-align: center;
+    }
+    .footer .second h4 {
+        font-size: 14px;
+        display: block;
+    }
+    .footer .second p {
+        font-size: 12px;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+    .footer .second img {
+        width: 16px;
+        height: 16px;
+        margin-top: 13px;
+    }
+    .footer .third {
+        width: 125px;
+        height: 57px;
+        margin-top: 20px;
+        margin-left: 98px;
+        margin-bottom: 23px;
+    }
+    .footer .third h4 {
+        font-size: 14px;
+    }
+    .footer .third img {
+        width: 24px;
+        height: 24px;
+        margin-left: 26px;
+        margin-top: 17px;
+    }
+    .footer .third p {
+        font-size: 13px;
+        margin-top: 22px;
+    }
+    .h2 {
+        margin-top: 23px;
+    }
+}

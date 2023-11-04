@@ -36,6 +36,7 @@ class Mapper:
             condition=WeatherCondition(
                 *WC.weather_condition(current.condition)
             ),
+            wind_gust=None
         )
 
     @staticmethod
@@ -61,6 +62,7 @@ class Mapper:
                             *WC.weather_condition(hour.condition)
                         ),
                         time=hour.time,
+                        wind_gust=None
                     )
                 )
             days.append(
@@ -80,6 +82,7 @@ class Mapper:
                     sun=SunPosition(
                         day.date, day.sunrise, day.sunset, day.daylength
                     ),
+                    wind_gust=None
                 )
             )
         return DomainWeatherForecast(

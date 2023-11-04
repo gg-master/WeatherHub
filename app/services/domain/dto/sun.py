@@ -7,4 +7,4 @@ class SunPosition:
     day: datetime.date
     sunrise: datetime.time
     sunset: datetime.time
-    daylength: int  # hours
+    daylength: int  # minutes

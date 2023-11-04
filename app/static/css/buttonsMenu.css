@@ -1,0 +1,511 @@
+.button {
+    position: relative;
+    display: inline-block;
+    width: 63px;
+    height: 22px;
+    margin: 0;
+    margin-left: 34px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  
+  .button.r {
+    border-radius: 100px;
+  }
+  
+  .button.b2 {
+    border-radius: 2px;
+  }
+  
+  .checkbox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+  }
+  
+  .knobs {
+    z-index: 3;
+  }
+  
+  /* Button 10 Temp */
+  #button-10 .knobs:before,
+  #button-10 .knobs:after,
+  #button-10 .knobs span {
+    position: absolute;
+    top: 0px;
+    width: 30px;
+    height: 100%;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    /* padding: 9px 4px; */
+    text-align: center;
+    border-radius: 2px;
+    transition: 0.3s ease all;
+  }
+  
+  #button-10 .knobs:before {
+    content: "";
+    left: 0px;
+    background-color: #0047FF;
+  }
+  
+  #button-10 .knobs:after {
+    content: "C°";
+    right: 0px;
+    color: #002586;
+    background-color: #fff;
+    z-index: 1;
+  }
+  
+  #button-10 .knobs span {
+    display: inline-block;
+    left: 0px;
+    color: #fff;
+    z-index: 0;
+  }
+  
+  #button-10 .checkbox:checked + .knobs span {
+    color: #002586;
+    background-color: #FFF;
+  }
+  
+  #button-10 .checkbox:checked + .knobs:before {
+    left: 35px;
+    background-color: #0047FF;
+    z-index: 2;
+  }
+  
+  #button-10 .checkbox:checked + .knobs:after {
+    color: #fff;
+    background-color: #0047FF;
+    z-index: 2;
+  }
+  
+  #button-10 .checkbox:checked ~ .layer {
+    background-color: #fcebeb;
+  }
+
+  .button.b2.b11 {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 22px;
+    margin: 0;
+    margin-left: 77px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+    /* Button 11 Time */
+    #button-11 .knobs:before,
+    #button-11 .knobs:after,
+    #button-11 .knobs span {
+      position: absolute;
+      top: 0px;
+      width: 37px;
+      height: 100%;
+      font-family: Arial, 'Source Sans Pro';
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      /* padding: 9px 4px; */
+      text-align: center;
+      border-radius: 2px;
+      transition: 0.3s ease all;
+    }
+    
+    #button-11 .knobs:before {
+      content: "";
+      left: 0px;
+      background-color: #0047FF;
+    }
+    
+    #button-11 .knobs:after {
+      content: "24ч";
+      right: 0px;
+      color: #002586;
+      background-color: #fff;
+      z-index: 1;
+    }
+    
+    #button-11 .knobs span {
+      display: inline-block;
+      left: 0px;
+      color: #fff;
+      z-index: 0;
+    }
+    
+    #button-11 .checkbox:checked + .knobs span {
+      color: #002586;
+      background-color: #FFF;
+    }
+    
+    #button-11 .checkbox:checked + .knobs:before {
+      left: 42px;
+      background-color: #0047FF;
+      z-index: 2;
+    }
+    
+    #button-11 .checkbox:checked + .knobs:after {
+      color: #fff;
+      background-color: #0047FF;
+      z-index: 2;
+    }
+    
+    #button-11 .checkbox:checked ~ .layer {
+      background-color: #fcebeb;
+    }
+
+
+    .button.b2.b12 {
+        position: relative;
+        display: block;
+        width: 73px;
+        height: 22px;
+        margin: 0;
+        margin-left: 34px;
+        margin-top: 8px;
+        overflow: hidden;
+      }
+        /* Button 11 Time */
+        #button-12 .knobs:before,
+        #button-12 .knobs:after,
+        #button-12 .knobs span {
+          position: absolute;
+          top: 0px;
+          width: 34px;
+          height: 100%;
+          font-family: Arial, 'Source Sans Pro';
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          /* padding: 9px 4px; */
+          text-align: center;
+          border-radius: 2px;
+          transition: 0.3s ease all;
+        }
+        
+        #button-12 .knobs:before {
+          content: "";
+          left: 0px;
+          background-color: #0047FF;
+        }
+        
+        #button-12 .knobs:after {
+          content: "mm";
+          right: 0px;
+          color: #002586;
+          background-color: #fff;
+          z-index: 1;
+        }
+        
+        #button-12 .knobs span {
+          display: inline-block;
+          left: 0px;
+          color: #fff;
+          z-index: 0;
+        }
+        
+        #button-12 .checkbox:checked + .knobs span {
+          color: #002586;
+          background-color: #FFF;
+        }
+        
+        #button-12 .checkbox:checked + .knobs:before {
+          left: 39px;
+          background-color: #0047FF;
+          z-index: 2;
+        }
+        
+        #button-12 .checkbox:checked + .knobs:after {
+          color: #fff;
+          background-color: #0047FF;
+          z-index: 2;
+        }
+        
+        #button-12 .checkbox:checked ~ .layer {
+          background-color: #fcebeb;
+        }
+
+
+    .button.b2.b12 {
+        position: relative;
+        display: block;
+        width: 73px;
+        height: 22px;
+        margin: 0;
+        margin-left: 34px;
+        margin-top: 8px;
+        overflow: hidden;
+      }
+        /* Button 11 Time */
+        #button-12 .knobs:before,
+        #button-12 .knobs:after,
+        #button-12 .knobs span {
+          position: absolute;
+          top: 0px;
+          width: 34px;
+          height: 100%;
+          font-family: Arial, 'Source Sans Pro';
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          /* padding: 9px 4px; */
+          text-align: center;
+          border-radius: 2px;
+          transition: 0.3s ease all;
+        }
+        
+        #button-12 .knobs:before {
+          content: "";
+          left: 0px;
+          background-color: #0047FF;
+        }
+        
+        #button-12 .knobs:after {
+          content: "mm";
+          right: 0px;
+          color: #002586;
+          background-color: #fff;
+          z-index: 1;
+        }
+        
+        #button-12 .knobs span {
+          display: inline-block;
+          left: 0px;
+          color: #fff;
+          z-index: 0;
+        }
+        
+        #button-12 .checkbox:checked + .knobs span {
+          color: #002586;
+          background-color: #FFF;
+        }
+        
+        #button-12 .checkbox:checked + .knobs:before {
+          left: 39px;
+          background-color: #0047FF;
+          z-index: 2;
+        }
+        
+        #button-12 .checkbox:checked + .knobs:after {
+          color: #fff;
+          background-color: #0047FF;
+          z-index: 2;
+        }
+        
+        #button-12 .checkbox:checked ~ .layer {
+          background-color: #fcebeb;
+        }
+    
+        .button.b2.b13 {
+            position: relative;
+            display: block;
+            width: 179px;
+            height: 22px;
+            margin: 0;
+            margin-left: 34px;
+            margin-top: 8px;
+            overflow: hidden;
+          }
+            /* Button 11 Time */
+            #button-13 .knobs:before,
+            #button-13 .knobs:after,
+            #button-13 .knobs span {
+              position: absolute;
+              top: 0px;
+              width: 46px;
+              height: 100%;
+              font-family: Arial, 'Source Sans Pro';
+              font-size: 18px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+              /* padding: 9px 4px; */
+              text-align: center;
+              border-radius: 2px;
+              transition: 0.3s ease all;
+            }
+            
+            #button-13 .knobs:before {
+              content: "";
+              left: 0px;
+              background-color: #0047FF;
+            }
+            
+            #button-13 .knobs:after {
+              content: "mm";
+              right: 0px;
+              color: #0047FF;
+              background-color: #fff;
+              z-index: 1;
+            }
+            
+            #button-13 .knobs span {
+              display: inline-block;
+              left: 0px;
+              color: #fff;
+              z-index: 0;
+            }
+            
+            #button-13 .checkbox:checked + .knobs span {
+              color: #0047FF;
+              background-color: #FFF;
+            }
+            
+            #button-13 .checkbox:checked + .knobs:before {
+              left: 51px;
+              background-color: #0047FF;
+              z-index: 2;
+            }
+            
+            #button-13 .checkbox:checked + .knobs:after {
+              color: #fff;
+              background-color: #0047FF;
+              z-index: 2;
+            }
+            
+            #button-13 .checkbox:checked ~ .layer {
+              background-color: #fcebeb;
+            }
+
+/* Radio Buttons */
+/* Speed */
+input[type="radio"] {
+    position: relative;
+    display: none;
+}
+  
+input[type="radio"] + label {
+    display: inline-block;
+    text-align: center;
+    width: 46px;
+    height: 22px;
+    margin: 5px;
+    border-radius: 2px;
+    position: relative;
+    font-family: Arial, 'Source Sans Pro';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    transition: 500ms;
+}
+  
+input[type="radio"]#mph + label {
+    background-color: white;
+    color: #002586;
+}
+  
+input[type="radio"]#kmh + label {
+    background-color: #fff;
+    color: #002586;
+}
+  
+input[type="radio"]#ms + label {
+    background-color: #fff;
+    color: #002586;
+}
+  
+input[type="radio"]#Bft + label {
+    background-color: #fff;
+    color: #002586;
+}
+  
+  
+  
+  /*hover, checked, focus*/
+  
+  input[type="radio"]#mph:hover + label,
+  input[type="radio"]#mph:checked + label,
+  input[type="radio"]#mph:focus + label{
+    cursor: pointer;
+    background-color: #0047FF;
+    color: #FFFFFF;
+    transition: 500ms;
+  }
+  
+  input[type="radio"]#kmh:hover + label,
+  input[type="radio"]#kmh:checked + label,
+  input[type="radio"]#kmh:focus + label{
+    cursor: pointer;
+    background-color: #0047FF;
+    color: #FFFFFF;
+    transition: 500ms;
+  }
+  input[type="radio"]#ms:hover + label,
+  input[type="radio"]#ms:checked + label,
+  input[type="radio"]#ms:focus + label{
+    cursor: pointer;
+    background-color: #0047FF;
+    color: #FFFFFF;
+    transition: 500ms;
+  }
+  
+  input[type="radio"]#Bft:hover + label,
+  input[type="radio"]#Bft:checked + label,
+  input[type="radio"]#Bft:focus + label{
+    cursor: pointer;
+    background-color: #0047FF;
+    color: #FFFFFF;
+    transition: 500ms;
+  }
+  
+
+/* Presure */
+  
+input[type="radio"]#inHg + label {
+    background-color: white;
+    color: #002586;
+}
+  
+input[type="radio"]#hPa + label {
+    background-color: #fff;
+    color: #002586;
+}
+  
+input[type="radio"]#mmHg + label {
+    background-color: #fff;
+    color: #002586;
+}
+  
+  
+  
+  /*hover, checked, focus*/
+  
+  input[type="radio"]#inHg:hover + label,
+  input[type="radio"]#inHg:checked + label,
+  input[type="radio"]#inHg:focus + label{
+    cursor: pointer;
+    background-color: #0047FF;
+    color: #FFFFFF;
+    transition: 500ms;
+  }
+  
+  input[type="radio"]#hPa:hover + label,
+  input[type="radio"]#hPa:checked + label,
+  input[type="radio"]#hPa:focus + label{
+    cursor: pointer;
+    background-color: #0047FF;
+    color: #FFFFFF;
+    transition: 500ms;
+  }
+  input[type="radio"]#mmHg:hover + label,
+  input[type="radio"]#mmHg:checked + label,
+  input[type="radio"]#mmHg:focus + label{
+    cursor: pointer;
+    background-color: #0047FF;
+    color: #FFFFFF;
+    transition: 500ms;
+  }
+  

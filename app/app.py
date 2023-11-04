@@ -8,7 +8,7 @@ from app.utils.logging import setup_logging_queue
 def create_app() -> Flask:
     setup_logging_queue()
 
-    app = Flask(__name__)
+    app = Flask(__name__, static_url_path="/")
     app.config["SECRET_KEY"] = getenv("SECRET_KEY")
     register_all_routes(app)
     return app

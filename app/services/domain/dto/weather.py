@@ -17,6 +17,7 @@ class Weather:
     humidity: float  # in range [0;1]
     pressure: Optional[float]  # mmHg
     condition: WeatherCondition
+    wind_gust: Wind
 
 
 @dataclass
