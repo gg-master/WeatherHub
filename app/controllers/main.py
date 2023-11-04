@@ -9,6 +9,6 @@ from app.services.infrastructure.repositories import WeatherRepository
 
 async def index():
     location = Location("Волгоград", "Россия", 48.721322, 44.514226)
-    # pprint(await GetCurrentForecast(WeatherRepository()).execute(location))
-    pprint(await GetTendayForecast(WeatherRepository()).execute(location))
+    pprint(await GetCurrentForecast(WeatherRepository()).execute(location))
+    # pprint(await GetTendayForecast(WeatherRepository()).execute(location))
     return render_template("index.html")

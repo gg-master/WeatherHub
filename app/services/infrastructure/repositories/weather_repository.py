@@ -28,7 +28,9 @@ class WeatherRepository(IWeatherRepository):
     async def get_current_weathers(
         self, location: Location
     ) -> List[CurrentWeather]:
+    
         providers = await self._activate_providers(location)
+        self._logger.debug("Successful activation of weather providers")
 
         raw_result = await asyncio.gather(
             *[
@@ -36,6 +38,7 @@ class WeatherRepository(IWeatherRepository):
                 for provider in providers
             ]
         )
+        self._logger.debug("Successful gathering about the current weather")
 
         return [
             mapper.current_to_domain(raw_result[i])
@@ -44,6 +47,7 @@ class WeatherRepository(IWeatherRepository):
 
     async def get_forecasts(self, location: Location) -> List[WeatherForecast]:
         providers = await self._activate_providers(location)
+        self._logger.debug("Successful activation of weather providers")
 
         raw_result = await asyncio.gather(
             *[
@@ -51,6 +55,7 @@ class WeatherRepository(IWeatherRepository):
                 for provider in providers
             ]
         )
+        self._logger.debug("Successful gathering of forecasts info")
 
         return [
             mapper.forecast_to_domain(raw_result[i])
