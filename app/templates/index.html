@@ -74,7 +74,7 @@
         <img src="img/ten_dforecast_icon.svg" alt="" class="icons">
         <a href="" ><h5 style="margin-left: 0; color: #DD0000;">Прогноз на 10 дней</h5></a>
         <img src="img/hours_forecast_icon.svg" style="margin-top: 12px; margin-left: 27px;">
-        <a href="hourly.html"><h5 style="margin-top: 15px; margin-left: 0;">Почасовой прогноз</h5></a>
+        <a href="/hourly"><h5 style="margin-top: 15px; margin-left: 0;">Почасовой прогноз</h5></a>
         <hr>
         <h2 style="width: 193px; display: block;">Избранные города</h2>
         <a class="addCurrent" type="button">Добавить текущий</a>
@@ -103,7 +103,7 @@
     <main>
         <section class="main">
             {% for day in weather_forecast %}
-            {{ show_block(day) }}
+            {{ show_block(day, True) }}
             {% endfor %}
         </section>
     </main>
@@ -135,5 +135,7 @@
 
     <script src="js/main.js"></script>
     <script src="js/search.js"></script>
+    {{ moment.include_moment() }}
+    {{ moment.lang('ru') }}
 </body>
 </html>

@@ -1,12 +1,21 @@
 {% from "day_card.html" import show_card with context %}
+{% from "hourly_card.html" import show_hourly_card with context %}
 
-{% macro show_block(block) %}
+{% macro show_block(block, is_daily) %}
 <aside id="aside" style="margin-top: 31px;">
-    <p><b class="day">{{block.day_rel}}</b> <span class="date">{{block.date_info}}</span> <span class="time">{{block.time_info}}</span> <span class="city">{{ block.city_in }}</span></p>
+    <p><b class="day">{{block.day_rel}}</b> <span class="date">{{moment(block.date).format('LLL')}}</span> <b class="city">{{ block.city_in }}</b></p>
+    {% if is_daily %}
     <a href="/hourly?name={{block.location.place}}&country={{block.location.country}}"><h6>Почасовой прогноз</h6></a>
+    {% else %}
+    <a href="/forecast?name={{block.location.place}}&country={{block.location.country}}" ><h6>Дневной прогноз</h6></a>
+    {% endif %}
     <br>
         {% for i, card in block.cards %}
+            {% if is_daily %}
             {{show_card(i, card)}}
+            {% else %}
+            {{show_hourly_card(i, card)}}
+            {% endif %}
         {% endfor %}
     <img src="img/more_btn.svg" alt="" type="button" class="moreDown">
 </aside>

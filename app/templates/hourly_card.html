@@ -1,0 +1,18 @@
+{% macro show_hourly_card(i, card) %}
+<article>
+    <div class="line">
+        <img src="img/arrow-left-circle-line 1.svg" alt="" class="arrowLeft" type="button" id="btnPrev0">
+        <span class="slider" id="slider0">
+                {% for weather in card.hourly %}
+                <div class="hour">
+                    <h2 class="time">{{weather.time.strftime("%H:%M")}}</h2>
+                    <img class="condition" src="img/image 2.png" alt>
+                    <h2 class="temp">{{weather.temp.real}}°</h2>
+                </div>
+                {% endfor %}
+        </span>
+        <img src="img/arrow-right-circle-line 1.svg" alt="" class="arrowRight"  type="button" id="btnNext0">
+    </div>
+    <p>Ист.: <span class="weatherSource">{{card.source}}<w>обн.</w></span></p>
+</article>
+{% endmacro %}
