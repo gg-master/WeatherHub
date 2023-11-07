@@ -136,6 +136,6 @@
     <script src="js/main.js"></script>
     <script src="js/search.js"></script>
     {{ moment.include_moment() }}
-    {{ moment.lang('ru') }}
+    {{ moment.locale(auto_detect=True) }}
 </body>
 </html>

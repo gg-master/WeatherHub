@@ -1,4 +1,4 @@
-{% macro show_card(i, card) %}
+{% macro show_card(i, card, datetime) %}
 {% if i == 0 %}
 <span class="card first">
 {% else %}
@@ -17,7 +17,7 @@
                 <img src="img/GroupVeter.svg" alt="">
                 <h4 class="wind">{{card.wind.speed}} м/с, {{card.wind.direction}}
                     {% if card.wind_gust %}
-                    <span class="gust">порывы до {{card.wind_gust.speed}} м/с</span>
+                    <d class="gust">порывы до {{card.wind_gust.speed}} м/с</d>
                     {% endif %}
                 </h4>
                 {% if card.pressure %}
@@ -26,7 +26,7 @@
                 {% endif %}
                 {% if card.humidity %}
                 <img src="img/GroupWater.svg" alt="" style="margin-top: 13px;">
-                <h4 style="position: relative; top: -5px;" class="pressurePer">{{card.humidity * 100}}% 
+                <h4 style="position: relative; top: -5px;" class="pressurePer">{{card.humidity}}% 
                     {% if card.precipitation %}
                     / {{card.precipitation}} мм
                     {% endif %}
@@ -42,6 +42,6 @@
                 <h3 class="sunset">{{card.sun.sunset}}</h3>
             </span>
         </div>
-        <p>Ист.: <span class="weatherSource">{{card.source}}<w>обн.</w></span></p>
+        <p>Ист.: <span class="weatherSource">{{card.source}}<w>обн. {{ moment(datetime).format('hh:mm') }}</w></span></p>
     </span>
 {% endmacro %}

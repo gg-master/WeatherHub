@@ -36,7 +36,7 @@ class Mapper:
             condition=WeatherCondition(
                 *WC.weather_condition(current.condition)
             ),
-            wind_gust=None
+            wind_gust=Wind(speed=current.wind_gust, direction=None)
         )
 
     @staticmethod
@@ -48,23 +48,26 @@ class Mapper:
         for day in forecast:
             hours: List[DomainHourlyForecast] = []
             hour: HourForecast
-            for hour in day.hourly:
-                hours.append(
-                    DomainHourlyForecast(
-                        temp=Temperature(hour.temp, hour.feel_temp),
-                        wind=Wind(
-                            hour.wind_speed,
-                            WC.wind_direction(hour.wind_direction),
-                        ),
-                        humidity=hour.humidity * 0.01,
-                        pressure=None,
-                        condition=WeatherCondition(
-                            *WC.weather_condition(hour.condition)
-                        ),
-                        time=hour.time,
-                        wind_gust=None
+            if day.hourly is not None:
+                for hour in day.hourly:
+                    hours.append(
+                        DomainHourlyForecast(
+                            temp=Temperature(hour.temp, hour.feel_temp),
+                            wind=Wind(
+                                hour.wind_speed,
+                                WC.wind_direction(hour.wind_direction),
+                            ),
+                            humidity=hour.humidity * 0.01,
+                            pressure=None,
+                            condition=WeatherCondition(
+                                *WC.weather_condition(hour.condition)
+                            ),
+                            time=hour.time,
+                            wind_gust=None
+                        )
                     )
-                )
+            else:
+                hours = None
             days.append(
                 DomainDayForecast(
                     temp=Temperature(day.max_temp, None),

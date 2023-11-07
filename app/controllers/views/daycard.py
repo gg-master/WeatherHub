@@ -77,7 +77,7 @@ class Card:
     
     @property
     def humidity(self):
-        return round(self._humidity, 3)
+        return round(self._humidity * 100)
     
     @property
     def pressure(self):
@@ -103,9 +103,11 @@ class Card:
 
     @property
     def sun(self):
+        hour, minutes = divmod(self._sun.daylength, 60)
+        time = datetime.time(hour, minutes)
         return Sun(
             self._sun.sunset.strftime("%H:%M"),
             self._sun.sunrise.strftime("%H:%M"),
-            "{}:{}".format(*divmod(self._sun.daylength, 60))
+            time.strftime("%H:%M")
         )
     

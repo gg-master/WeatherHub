@@ -1,4 +1,4 @@
-{% macro show_hourly_card(i, card) %}
+{% macro show_hourly_card(i, card, datetime) %}
 <article>
     <div class="line">
         <img src="img/arrow-left-circle-line 1.svg" alt="" class="arrowLeft" type="button" id="btnPrev0">
@@ -13,6 +13,6 @@
         </span>
         <img src="img/arrow-right-circle-line 1.svg" alt="" class="arrowRight"  type="button" id="btnNext0">
     </div>
-    <p>Ист.: <span class="weatherSource">{{card.source}}<w>обн.</w></span></p>
+    <p>Ист.: <span class="weatherSource">{{card.source}}  <w>обн. {{ moment(datetime).format('hh:mm') }}</w></span></p>
 </article>
 {% endmacro %}

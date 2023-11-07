@@ -139,7 +139,7 @@ class ForecaParser:
         result = to_json(text)[self._place.id]
         days = []
         hours = await asyncio.gather(*[
-           self._get_hourly(i) for i in range(len(result))
+           self._get_hourly(i) for i in range(10)
         ])
         for i, day in enumerate(result):
             day = DayForecast(
@@ -154,7 +154,7 @@ class ForecaParser:
                 dateparser.parse(day["sunrise"]).time(),
                 dateparser.parse(day["sunset"]).time(),
                 int(day["daylen"]),
-                hourly=hours[i]
+                hourly=hours[i] if i < 10 else None
             )
             days.append(day)
         return days

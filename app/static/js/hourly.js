@@ -24,8 +24,8 @@ function displayWindowSize() {
     {
         sliderItems[i].forEach(function (slide, index) {
             const windowInnerWidth = document.documentElement.clientWidth;
-            let t = 19;
-            if (windowInnerWidth <= MOBILE_MAX_WIDTH) t = 4;
+            let t = 16;
+            if (windowInnerWidth <= MOBILE_MAX_WIDTH) t = 3;
             // Скрываем ненужные слайды
             if (index >= t) {
                 slide.classList.add('hide');
@@ -53,8 +53,8 @@ for (let i = 0; i < btnNext.length; i++)
         const currentSlide = slider[i].querySelector('[data-active]');
         const currentSlideIndex = +currentSlide.dataset.index;
         const windowInnerWidth = document.documentElement.clientWidth;
-        let t = 19;
-        if (windowInnerWidth <= MOBILE_MAX_WIDTH) t = 4;
+        let t = 16;
+        if (windowInnerWidth <= MOBILE_MAX_WIDTH) t = 3;
         // Показываем след слайд
         let nextSlideIndex;
         if (currentSlideIndex + t < sliderItems[i].length) {

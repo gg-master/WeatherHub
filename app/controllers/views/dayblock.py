@@ -12,5 +12,6 @@ class Block:
     city_in: str
     cards: List[Card]
     location: Location
+    is_time_viewed: bool
 
 
