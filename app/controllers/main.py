@@ -11,6 +11,7 @@ from app.services.infrastructure.repositories import WeatherRepository
 
 async def index():
     location = Location("Волгоград", "Россия", 48.721322, 44.514226)
+    # TODO: change to asyncio.gather
     current = await GetCurrentForecast(WeatherRepository()).execute(location)
     tenday = await GetTendayForecast(WeatherRepository()).execute(location)
     blocks = form_blocks(location, current, tenday)

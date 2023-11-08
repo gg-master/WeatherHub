@@ -1,3 +1,4 @@
+import datetime
 import functools
 from math import e
 import pickle
@@ -16,7 +17,8 @@ class Cacher:
 
 class PickleCacher(Cacher):
     DEFAULT_PATH = "cache/"
-    CACHE_LIVE_TIME = 480 #seconds
+    CACHE_LIVE_TIME = 600 # seconds
+    FUNC_CALL_DELTA = 10 # seconds
 
     def __init__(self, nargs=0):
         super().__init__(nargs)
@@ -32,6 +34,7 @@ class PickleCacher(Cacher):
     def __call__(self, func) -> Callable:
         @functools.wraps(func)
         def _func_cached_wrapper(*args, **kwargs):
+            time_measure = time.time()
             cached_args = tuple(args[:self._nargs])
             filename = self.compute_hash(cached_args)
             is_reload_required = True
@@ -40,10 +43,15 @@ class PickleCacher(Cacher):
                 with open(filepath, "rb") as fobj:
                     data = pickle.load(fobj)
                     if hasattr(data, "_cached_timestamp"):
-                        if time.time() - data._cached_timestamp <= self.CACHE_LIVE_TIME:
+                        cache_age = time_measure - data._cached_timestamp
+                        if cache_age <= self.CACHE_LIVE_TIME:
                             is_reload_required = False
             if is_reload_required:
+                if hasattr(func, "_called_timestamp"):
+                    if time_measure - func._called_timestamp <= self.FUNC_CALL_DELTA:
+                        time.sleep(self.FUNC_CALL_DELTA - time_measure + func._called_timestamp)
                 result = func(*args, **kwargs)
+                func._called_timestamp = int(datetime.datetime.now().timestamp())
                 with open(filepath, "wb") as fobj:
                     pickle.dump(result, fobj)
                 return result
