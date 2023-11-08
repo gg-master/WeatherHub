@@ -1,11 +1,17 @@
 import datetime
+from app.controllers.cache.cacher import PickleCacher
 from app.controllers.views.dayblock import Block
 from app.controllers.views.daycard import Card
 from app.controllers.views.hourlycard import HourlyCard
 
 
-def form_blocks(current_weather, forecast, location):
-    result = []
+class CachableList(list):
+    _cached_timestamp: int
+
+
+@PickleCacher(1)
+def form_blocks(location, current_weather, forecast):
+    result = CachableList()
     now_date = datetime.datetime.utcnow()
     card_list = map(lambda x: Card(x, location, x.provider), current_weather)
     result.append(
@@ -40,11 +46,13 @@ def form_blocks(current_weather, forecast, location):
             cards=list(enumerate(day_cards)),
             location=location, is_time_viewed=False)
         )
+    result._cached_timestamp = int(datetime.datetime.now().timestamp())
     return result
 
 
+@PickleCacher(1)
 def form_hourly_blocks(forecast, location):
-    result = []
+    result = CachableList()
     now_date = datetime.datetime.utcnow()
     day_count = 0
     for wforecast in forecast:
@@ -73,4 +81,5 @@ def form_hourly_blocks(forecast, location):
                 cards=list(enumerate(day_cards)),
                 location=location, is_time_viewed=False)
             )
+    result._cached_timestamp = int(datetime.datetime.now().timestamp())
     return result

@@ -13,7 +13,7 @@ async def index():
     location = Location("Волгоград", "Россия", 48.721322, 44.514226)
     current = await GetCurrentForecast(WeatherRepository()).execute(location)
     tenday = await GetTendayForecast(WeatherRepository()).execute(location)
-    blocks = form_blocks(current, tenday, location)
+    blocks = form_blocks(location, current, tenday)
     return render_template("index.html", weather_forecast=blocks)
 
 
