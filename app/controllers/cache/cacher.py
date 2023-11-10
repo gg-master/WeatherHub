@@ -1,10 +1,9 @@
 import datetime
 import functools
-from math import e
 import pickle
 import os
 import time
-from typing import Any, Callable
+from typing import Callable
 from hashlib import md5
 
 class Cacher:

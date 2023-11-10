@@ -45,9 +45,9 @@ class Card:
 
     def _translate_direction(self, direction):
         if direction == Direction.E:
-            return "З"
-        elif direction == Direction.W:
             return "В"
+        elif direction == Direction.W:
+            return "З"
         elif direction == Direction.N:
             return "С"
         elif direction == Direction.S:
