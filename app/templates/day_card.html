@@ -42,6 +42,6 @@
                 <h3 class="sunset">{{card.sun.sunset}}</h3>
             </span>
         </div>
-        <p>Ист.: <span class="weatherSource">{{card.source}}<w>обн. {{ moment(datetime).format('hh:mm') }}</w></span></p>
+        <p>Ист.: <span class="weatherSource">{{card.source}}<w>обн. {{ moment(datetime, True).format('hh:mm') }}</w></span></p>
     </span>
 {% endmacro %}

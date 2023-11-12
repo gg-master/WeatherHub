@@ -7,3 +7,4 @@ astral
 python-dotenv
 dateparser
 Flask-Moment
+timezonefinder
