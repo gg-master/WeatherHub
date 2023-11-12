@@ -37,15 +37,15 @@ class WeatherCondition:
         )
 
     @property
-    def cloudness(self):
+    def cloudness(self) -> int:
         return self._cloudness
 
     @property
-    def precipitation(self):
+    def precipitation(self) -> int:
         return self._precipitation
 
     @property
-    def precipitation_type(self):
+    def precipitation_type(self) -> int:
         return self._precipitation_type
 
     @staticmethod

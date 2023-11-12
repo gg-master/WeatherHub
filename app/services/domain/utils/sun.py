@@ -1,7 +1,9 @@
-from typing import Optional
-import astral.sun
-from astral import Observer
 import datetime
+import astral.sun
+
+from typing import Optional
+from astral import Observer
+
 from app.services.domain.dto.sun import SunPosition
 from app.services.domain.dto.location import Location
 
@@ -31,3 +33,7 @@ class SunPositionService:
         return SunPosition(date, self.sunrise(date).time(),
                             self.sunset(date).time(), 
                             self.daylength(date).seconds // 60)
+    
+    def is_daytime(self, local_time: datetime.datetime) -> bool: 
+        return local_time <= self.sunset(local_time.date())
+ 

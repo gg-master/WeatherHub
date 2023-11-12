@@ -6,13 +6,13 @@
                 {% for weather in card.hourly %}
                 <div class="hour">
                     <h2 class="time">{{weather.time.strftime("%H:%M")}}</h2>
-                    <img class="condition" src="img/image 2.png" alt>
+                    <img class="condition" src="{{ weather.condition_image }}" alt style="max-width: 25px; max-height: 25px;">
                     <h2 class="temp">{{weather.temp.real}}°</h2>
                 </div>
                 {% endfor %}
         </span>
         <img src="img/arrow-right-circle-line 1.svg" alt="" class="arrowRight"  type="button" id="btnNext0">
     </div>
-    <p>Ист.: <span class="weatherSource">{{card.source}}  <w>обн. {{ moment(datetime).format('hh:mm') }}</w></span></p>
+    <p>Ист.: <span class="weatherSource">{{card.source}}  <w>обн. {{ moment(datetime, True).format('hh:mm') }}</w></span></p>
 </article>
 {% endmacro %}
