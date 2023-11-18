@@ -3,7 +3,7 @@ const searchOptions = document.querySelector('.options');
 
 function getOptions(word) {
     const lang = "ru_RU"; // TODO изменить жесткое задание локализации
-    const url = `/api/suggest-geo?lang=${lang}&part=${encodeURIComponent(word)}`;
+    const url = `/api/findLocation?lang=${lang}&query=${encodeURIComponent(word)}`;
 
     return fetch(url)
         .then(response => {
@@ -20,25 +20,8 @@ function getOptions(word) {
 function displayOptions() {
     getOptions(this.value)
         .then(options => {
-            options = options.options;
+            options = options.result;
             const html = options.map(city => {
-
-            //     // Проверяем наличие выделенных фрагментов (hl) и создаем соответствующий HTML
-            //     const highlightedName = city.hl
-            //         ? city.hl.reduce((acc, hl) => {
-            //             const start = hl[0];
-            //             const end = hl[1];
-            //             return acc + city.name.substring(start, end);
-            //         }, '')
-            //         : city.name;
-
-            //     // Заменяем подстроку, соответствующую значению, на HTML с выделением
-            //     const regex = new RegExp(this.value, 'gi');
-            //     const cityName = highlightedName.replace(
-            //         regex,
-            //         `<span class="hl">${this.value}</span>`
-            //     );
-
                 return `<li><span>${city.name}</span></li>`;
             })
                 .slice(0, 10)

@@ -11,9 +11,9 @@
         {% endif %}
         <b class="city">{{ block.city_in }}</b></p>
     {% if is_daily %}
-    <a href="/hourly?name={{block.location.place}}&country={{block.location.country}}"><h6>Почасовой прогноз</h6></a>
+    <a href="/hourly?name={{block.location.place}}"><h6>Почасовой прогноз</h6></a>
     {% else %}
-    <a href="/forecast?name={{block.location.place}}&country={{block.location.country}}" ><h6>Дневной прогноз</h6></a>
+    <a href="/forecast?name={{block.location.place}}" ><h6>Дневной прогноз</h6></a>
     {% endif %}
     <br>
         {% for i, card in block.cards %}

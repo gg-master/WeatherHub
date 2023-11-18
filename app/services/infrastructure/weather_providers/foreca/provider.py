@@ -17,7 +17,10 @@ class ForecaParser:
     @classmethod
     async def create_for(cls, location: Location) -> "ForecaParser":
         self = ForecaParser()
-        self._place = (await self._search_place(location.place))[0]
+        self._place = None
+        locations = await self._search_place(location.place)
+        if len(locations):
+            self._place = locations[0]
         return self
 
     @property
@@ -29,6 +32,8 @@ class ForecaParser:
         self._place = place
 
     async def _get_hourly(self, day: int) -> List[HourForecast]:
+        if not self._place:
+            return []
         status, text = await fetch_url(
             self.HOURLY_URL.format(self._place.id, self._place.address, day)
         )
@@ -95,6 +100,8 @@ class ForecaParser:
         return []
 
     async def get_current(self) -> Optional[CurrentWeather]:
+        if not self._place:
+            return []
         status, text = await fetch_url(
             self.CURRENT_URL.format(self._place.id, self._place.address)
         )
@@ -131,16 +138,16 @@ class ForecaParser:
             wind_dir,
             rain,
         )
-   
+
     async def get_forecast(self) -> List[DayForecast]:
+        if not self._place:
+            return []
         status, text = await fetch_url(self.FORECAST_URL.format(self._place.id))
         if status != 200:
             return []
         result = to_dict(text)[self._place.id]
         days = []
-        hours = await asyncio.gather(*[
-           self._get_hourly(i) for i in range(10)
-        ])
+        hours = await asyncio.gather(*[self._get_hourly(i) for i in range(10)])
         for i, day in enumerate(result):
             day = DayForecast(
                 dateparser.parse(day["date"]).date(),
@@ -154,7 +161,7 @@ class ForecaParser:
                 dateparser.parse(day["sunrise"]).time(),
                 dateparser.parse(day["sunset"]).time(),
                 int(day["daylen"]),
-                hourly=hours[i] if i < 10 else None
+                hourly=hours[i] if i < 10 else None,
             )
             days.append(day)
         return days

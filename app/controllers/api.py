@@ -1,34 +1,26 @@
+import dataclasses
 import json
 import urllib.parse
 
-from flask import Response, abort, jsonify, request
+from flask import Response, abort, request
+from app.services.search import find_location
 
-from app.utils.requests import fetch_url, to_dict
 
 
-async def suggest_geo():
+async def location_search():
     lang = request.args.get("lang")
-    part = request.args.get("part")
+    query = request.args.get("query")
 
-    encoded_part = urllib.parse.quote(part, encoding="utf-8")
-
-    # api docs https://yandex.ru/dev/jsapi-v2-1/doc/ru/v2-1/ref/reference/geocode
-    url = (
-        f"https://suggest-maps.yandex.ru/suggest-geo?&lang={lang}&"
-        f"search_type=weather_v2&client_id=weather_v2&part={encoded_part}"
-    )
-
-    status, text = await fetch_url(url)
-
-    if status != 200:
+    print(query)
+    try:
+        result = await find_location(lang, query)
+    except ConnectionError:
         return abort(500)
-
-    allowed_kinds = ["locality"]
-    filtered = list(
-        filter(lambda x: x.get("kind") in allowed_kinds, to_dict(text)[1])
-    )
+    
+    result = list(map(lambda x: {"name": x.place, "lat": x.lat, "lon": x.long}, result))
+    
     return Response(
-        json.dumps({"for": part, "options": filtered}),
+        json.dumps({"query": query, "result": result}, ensure_ascii=False),
         200,
         mimetype="application/json",
     )
