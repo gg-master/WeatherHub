@@ -5,7 +5,7 @@ from typing import List, Optional
 from urllib.parse import quote_plus
 import dateparser
 
-from app.utils.requests import fetch_url, to_json
+from app.utils.requests import fetch_url, to_dict
 
 
 class ForecaParser:
@@ -70,7 +70,7 @@ class ForecaParser:
             params={"limit": 30, "lang": "ru"},
         )
         if status == 200:
-            result = to_json(text)
+            result = to_dict(text)
             places = []
             for place in result["results"]:
                 address = [
@@ -136,7 +136,7 @@ class ForecaParser:
         status, text = await fetch_url(self.FORECAST_URL.format(self._place.id))
         if status != 200:
             return []
-        result = to_json(text)[self._place.id]
+        result = to_dict(text)[self._place.id]
         days = []
         hours = await asyncio.gather(*[
            self._get_hourly(i) for i in range(10)

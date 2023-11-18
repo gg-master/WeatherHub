@@ -15,5 +15,9 @@ async def fetch_url(url, headers={}, params={}):
             return response.status, await response.text()
 
 
-def to_json(response):
+def to_dict(response):
     return json.loads(response)
+
+def to_json(data):
+    # TODO улучшить преобразование к json. Некоторые типы могут не приводиться.
+    return json.dumps(data)

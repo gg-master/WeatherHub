@@ -2,7 +2,9 @@ import logging
 import queue
 from logging.handlers import QueueHandler, QueueListener
 
+
 def setup_logging_queue() -> None:
+    # TODO вынести настройки логирования в config файл
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(name)s <> %(message)s')
 
     log_queue = queue.Queue()

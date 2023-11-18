@@ -1,46 +1,54 @@
-const api = `https://raw.githubusercontent.com/pensnarik/russian-cities/master/russian-cities.json`
-
-const cities = [];
-
-fetch(api).then(res => res.json()).then(data => {
-    data.forEach(e => {
-        cities.push(e.name);
-    })
-})
-
 const searchInput = document.querySelector('#inputCity');
 const searchOptions = document.querySelector('.options');
 
-function getOptions(word, cities) {
+function getOptions(word) {
+    const lang = "ru_RU"; // TODO изменить жесткое задание локализации
+    const url = `/api/suggest-geo?lang=${lang}&part=${encodeURIComponent(word)}`;
 
-    return cities.filter(s => {
-        // Определить совпадаетли то что мы вбили в input 
-        // названием города внутри массива
-
-        const regex = new RegExp(word, 'gi');
-
-        return s.match(regex);
-    })
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Запрос завершился с ошибкой: ${response.status}`);
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error(`Произошла ошибка при отправке запроса: ${error.message}`);
+        });
 }
 
 function displayOptions() {
+    getOptions(this.value)
+        .then(options => {
+            options = options.options;
+            const html = options.map(city => {
 
-    const options = getOptions(this.value, cities);
+            //     // Проверяем наличие выделенных фрагментов (hl) и создаем соответствующий HTML
+            //     const highlightedName = city.hl
+            //         ? city.hl.reduce((acc, hl) => {
+            //             const start = hl[0];
+            //             const end = hl[1];
+            //             return acc + city.name.substring(start, end);
+            //         }, '')
+            //         : city.name;
 
-    const html = options
-        .map(city => {
+            //     // Заменяем подстроку, соответствующую значению, на HTML с выделением
+            //     const regex = new RegExp(this.value, 'gi');
+            //     const cityName = highlightedName.replace(
+            //         regex,
+            //         `<span class="hl">${this.value}</span>`
+            //     );
 
-            const regex = new RegExp(this.value, 'gi');
-            const cityName = city.replace(regex, 
-                    `<span class="hl">${this.value}</span>`
-                );
+                return `<li><span>${city.name}</span></li>`;
+            })
+                .slice(0, 10)
+                .join('');
 
-            return `<li><span>${cityName}</span></li>`;
+            searchOptions.innerHTML = this.value ? html : null;
         })
-        .slice(0, 10)
-        .join('');
-
-    searchOptions.innerHTML = this.value ? html : null;
+        .catch(error => {
+            console.error(`Произошла ошибка: ${error.message}`);
+        });
 }
 
 searchInput.addEventListener('change', displayOptions);
