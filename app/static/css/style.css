@@ -678,11 +678,17 @@ a {
 }
 .options li {
     background-color: white;
+    font-family: Arial, 'Source Sans Pro';
+    cursor: pointer;
     list-style: none;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
     margin: 0;
     padding: 18px;
     text-transform: capitalize;
+}
+
+.options li:hover {
+    background-color: #dbdada;
 }
 
 .hl {
