@@ -1,3 +1,4 @@
+import asyncio
 from flask import render_template, request
 from app.controllers.views import form_blocks, form_hourly_blocks
 from app.services.domain.dto.location import Location
@@ -16,9 +17,10 @@ async def index():
         location = (await find_location("ru-RU", f"{name}"))[0]
     else:
         location = Location("Волгоград", "Россия", 48.721322, 44.514226)
-    # TODO: change to asyncio.gather
-    current = await GetCurrentForecast(WeatherRepository()).execute(location)
-    tenday = await GetTendayForecast(WeatherRepository()).execute(location)
+    current, tenday = await asyncio.gather(
+        GetCurrentForecast(WeatherRepository()).execute(location),
+        GetTendayForecast(WeatherRepository()).execute(location),
+    )
     blocks = form_blocks(location, current, tenday)
     return render_template("index.html", weather_forecast=blocks)
 
