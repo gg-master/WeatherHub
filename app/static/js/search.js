@@ -79,6 +79,10 @@ function initFavorites() {
     for (let favor of favorites) {
       let element = document.createElement("li");
       element.setAttribute("class", "favor");
+      element.addEventListener("click", (e) => {
+        let text = e.currentTarget.querySelector("p").innerText;
+        window.location.href = `forecast?name=${text}`;
+      });
       document.querySelector(".favorites").appendChild(element);
       element.innerHTML = `<p>${favor}</p><img class="removeFavor" src="img/minus.svg" alt="">`;
       element.querySelector(".removeFavor").addEventListener("click", (e) => {

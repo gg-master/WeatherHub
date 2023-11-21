@@ -1,6 +1,9 @@
-const ALLOWED_ROUTES = ["forecast", "hourly"];
+const ALLOWED_ROUTES = ["forecast", "hourly", ""];
 let route = window.location.href.split("/");
 route = route[route.length - 1];
+if (route == "") {
+  route = "forecast";
+}
 
 if (ALLOWED_ROUTES.indexOf(route) >= 0) {
   if (localStorage.getItem("favorites") != undefined) {
