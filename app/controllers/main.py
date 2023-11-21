@@ -27,7 +27,7 @@ async def forecast():
         if len(locations):
             location = locations[0]
         else:
-            flash(f"Ничего не найдено по запросу: {name}")
+            # flash(f"Ничего не найдено по запросу: {name}")
     current, tenday = await asyncio.gather(
         CURRENT.execute(location),
         TENDAY.execute(location),
@@ -45,7 +45,7 @@ async def hourly():
         if len(locations):
             location = locations[0]
         else:
-            flash(f"Ничего не найдено по запросу: {name}")
+            # flash(f"Ничего не найдено по запросу: {name}")
     hourly = await TENDAY.execute(location)
     blocks = form_hourly_blocks(location, hourly)
     return render_template("hourly.html", weather_forecast=blocks)
