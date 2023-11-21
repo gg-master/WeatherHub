@@ -150,7 +150,13 @@ header {
     margin: 12px auto 0;
     border-radius: 5px;
     text-align: center;
+    cursor: pointer;
 }
+
+.favor {
+    cursor: pointer;
+}
+
 .menu ul {
     list-style-type: none;
     margin: 12px 0;

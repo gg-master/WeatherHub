@@ -1,0 +1,27 @@
+{% macro show_footer() %}
+<footer>
+    <section class="footer">
+        <hr>
+            <div class="first">
+                <h4 class="weather">Weather</h4>
+                <h3>hub</h3>
+                <p>Made with love</p> 
+                <img src="img/heart-line 1.svg" class="icons" >
+            </div>
+            <div class="second">
+                <h4>Прогнозы погоды</h4>
+                <img src="img/ten_dforecast_icon.svg" alt="" class="icons" style="position: relative; top:-2px;">
+                <a href="/"><p>Прогноз на 10 дней</p></a>
+                <img src="img/hours_forecast_icon.svg" style="position: relative; top:-3px;">
+                <a href="/hourly"><p>Почасовой прогноз</p></a>
+            </div>
+            <div class="third">
+                <h4>Социальные сети</h4>
+                <a href="https://github.com/gg-master/WeatherHub"><img src="img/Github icon.svg" alt="" class="githubFooter"></a>
+                <a href="https://github.com/gg-master/WeatherHub"><p style="color:black;font-weight: 700;">GitHub</p></a>
+            </div>
+        <hr class="hr2">
+        <h4>Copyright © 2023</h4>
+    </section>
+</footer>
+{% endmacro %}

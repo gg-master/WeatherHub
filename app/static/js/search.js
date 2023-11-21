@@ -58,3 +58,43 @@ function selectPlace(event) {
   let element = event.target;
   window.location.href = `/forecast?name=${element.innerText}`;
 }
+
+document.querySelector(".addCurrent").addEventListener("click", () => {
+  let favorites = [];
+  if (localStorage.getItem("favorites") != undefined) {
+    favorites = JSON.parse(localStorage.getItem("favorites"));
+  }
+  let city = document.querySelector(".city").innerText;
+  if (favorites.indexOf(city) < 0) {
+    favorites.push(city);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }
+  initFavorites();
+});
+
+function initFavorites() {
+  document.querySelector(".favorites").innerHTML = "";
+  if (localStorage.getItem("favorites") != undefined) {
+    let favorites = JSON.parse(localStorage.getItem("favorites"));
+    for (let favor of favorites) {
+      let element = document.createElement("li");
+      element.setAttribute("class", "favor");
+      document.querySelector(".favorites").appendChild(element);
+      element.innerHTML = `<p>${favor}</p><img class="removeFavor" src="img/minus.svg" alt="">`;
+      element.querySelector(".removeFavor").addEventListener("click", (e) => {
+        let favorites = [];
+        if (localStorage.getItem("favorites") != undefined) {
+          favorites = JSON.parse(localStorage.getItem("favorites"));
+        }
+        const index = favorites.indexOf(e.target.parentElement.innerText);
+        if (index > -1) {
+          favorites.splice(index, 1);
+        }
+        e.target.parentElement.style = "display: none;";
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+      });
+    }
+  }
+}
+
+initFavorites();

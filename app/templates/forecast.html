@@ -7,10 +7,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="js/preload.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/buttonsMenu.css">
-    <link rel="stylesheet" href="css/hourly.css">
     <meta name="theme-color" content="#000000"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C700"/>
@@ -38,17 +36,15 @@
     <main>
         <section class="main">
             {% for day in weather_forecast %}
-            {{ show_block(day, False) }}
+            {{ show_block(day, True) }}
             {% endfor %}
         </section>
     </main>
-    
     {{ show_footer() }}
 
     <script src="js/main.js"></script>
-    <script src="js/hourly.js"></script>
     <script src="js/search.js"></script>
     {{ moment.include_moment() }}
-    {{ moment.lang('ru') }}
+    {{ moment.locale(auto_detect=True) }}
 </body>
 </html>
