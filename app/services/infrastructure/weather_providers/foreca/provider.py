@@ -127,7 +127,7 @@ class ForecaParser:
         pressure = float(row.select(".pres_mmhg")[0].select("em")[0].text)
 
         return CurrentWeather(
-            datetime.datetime.now(),
+            datetime.datetime.utcnow(),
             temp,
             symb,
             feels_like,

@@ -18,9 +18,9 @@
     <br>
         {% for i, card in block.cards %}
             {% if is_daily %}
-            {{show_card(i, card, block.date)}}
+            {{show_card(i, card)}}
             {% else %}
-            {{show_hourly_card(i, card, block.date)}}
+            {{show_hourly_card(i, card)}}
             {% endif %}
         {% endfor %}
     <img src="img/more_btn.svg" alt="" type="button" class="moreDown">

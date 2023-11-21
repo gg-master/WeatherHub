@@ -24,7 +24,7 @@ class Weather:
 class CurrentWeather(Weather):
     provider: str
     location: Location
-    date: datetime.datetime
+    datetime: datetime.datetime
 
 
 @dataclass
@@ -42,6 +42,7 @@ class DayForecast(Weather):
 
 @dataclass
 class WeatherForecast:
+    datetime: datetime.datetime
     provider: str
     location: Location
     days: List[DayForecast]

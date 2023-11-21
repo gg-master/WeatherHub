@@ -8,6 +8,9 @@ class UseCaseCommand(ABC):
         self._logger = logging.getLogger(__name__)
         self._repository = repository
 
+    def __repr__(self):
+        return type(self).__name__
+
     @abstractmethod
     def execute(self):
         ...

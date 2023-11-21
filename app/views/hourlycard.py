@@ -14,18 +14,24 @@ class HourlyCard:
     def __init__(
         self,
         date: datetime,
+        updated: datetime,
         hourly: List[HourlyForecast],
         location: Location,
         source: str,
     ) -> None:
         self._source: str = source
         self._date = date
+        self._updated = updated
         self._hourly: List[HourlyForecast] = hourly
         self._sun_service = SunPositionService(location)
 
     @property
     def source(self) -> str:
         return self._source
+
+    @property
+    def updated(self) -> datetime:
+        return self._updated
 
     @property
     def hourly(self) -> WeatherView:

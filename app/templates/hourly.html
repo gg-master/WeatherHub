@@ -87,12 +87,12 @@
     <header>
         <section class="header">
             <a type="button" class="menuButton" id="menuButton"><img src="img/Vector.svg" alt="" class="vector"></a>
-            <a href=""><h2>Weather</h2></a>
-            <a href=""><h3>hub</h3></a>
+            <a href="/"><h2>Weather</h2></a>
+            <a href="/"><h3>hub</h3></a>
             <a href="/"><h5>Прогноз на 10 дней</h5></a>
             <a href=""><h4>Почасовой прогноз</h4></a>
-            <form class="form" id="form">
-                <input id="inputCity" class="input" type="text" placeholder="Ваш город">
+            <form class="form" id="form" method="GET">
+                <input id="inputCity" class="input" name="name" type="text" placeholder="Ваш город">
                 <ul class="options">
                 </ul>
             </form>

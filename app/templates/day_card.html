@@ -1,4 +1,4 @@
-{% macro show_card(i, card, datetime) %}
+{% macro show_card(i, card) %}
 {% if i == 0 %}
 <span class="card first">
 {% else %}
@@ -42,6 +42,6 @@
                 <h3 class="sunset">{{card.sun.sunset}}</h3>
             </span>
         </div>
-        <p>Ист.: <span class="weatherSource">{{card.source}} <w>обн. {{ moment(datetime, True).format('hh:mm') }}</w></span></p>
+        <p>Ист.: <span class="weatherSource">{{card.source}} <w>обн. {{ moment(card.updated).format('HH:mm') }}</w></span></p>
     </span>
 {% endmacro %}

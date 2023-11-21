@@ -1,3 +1,4 @@
+import datetime
 from typing import List
 
 from app.services.domain.dto.conditions import WeatherCondition
@@ -22,10 +23,12 @@ from app.services.infrastructure.weather_providers.foreca.dto import (
 class Mapper:
     @staticmethod
     def current_to_domain(current: CurrentWeather) -> DomainCurrentWeather:
+        if not current:
+            return
         return DomainCurrentWeather(
             provider="foreca",
             location=None,
-            date=current.datetime,
+            datetime=current.datetime,
             temp=Temperature(current.temp, current.feel_temp),
             wind=Wind(
                 current.wind_speed,
@@ -33,10 +36,8 @@ class Mapper:
             ),
             humidity=current.humidity * 0.01,
             pressure=current.pressure,
-            condition=WeatherCondition(
-                *WC.weather_condition(current.condition)
-            ),
-            wind_gust=Wind(speed=current.wind_gust, direction=None)
+            condition=WeatherCondition(*WC.weather_condition(current.condition)),
+            wind_gust=Wind(speed=current.wind_gust, direction=None),
         )
 
     @staticmethod
@@ -63,7 +64,7 @@ class Mapper:
                                 *WC.weather_condition(hour.condition)
                             ),
                             time=hour.time,
-                            wind_gust=None
+                            wind_gust=None,
                         )
                     )
             else:
@@ -71,24 +72,19 @@ class Mapper:
             days.append(
                 DomainDayForecast(
                     temp=Temperature(day.max_temp, None),
-                    wind=Wind(
-                        day.wind_speed, WC.wind_direction(day.wind_direction)
-                    ),
+                    wind=Wind(day.wind_speed, WC.wind_direction(day.wind_direction)),
                     humidity=day.humidity * 0.01,
                     pressure=None,
-                    condition=WeatherCondition(
-                        *WC.weather_condition(day.condition)
-                    ),
+                    condition=WeatherCondition(*WC.weather_condition(day.condition)),
                     date=day.date,
                     min_temp=Temperature(day.min_temp, None),
                     hourly=hours,
-                    sun=SunPosition(
-                        day.date, day.sunrise, day.sunset, day.daylength
-                    ),
-                    wind_gust=None
+                    sun=SunPosition(day.date, day.sunrise, day.sunset, day.daylength),
+                    wind_gust=None,
                 )
             )
         return DomainWeatherForecast(
+            datetime=datetime.datetime.utcnow(),
             provider="foreca",
             location=None,
             days=days,

@@ -25,7 +25,8 @@ PRECIP_INFO = {1: "Дождь со снегом", 2: "Снег"}
 
 class Card:
     def __init__(
-        self, domain_weather: DomainWeather, location: Location, provider
+        self, domain_weather: DomainWeather, location: Location, provider,
+            updated: datetime.datetime
     ):
         if not isinstance(domain_weather, DomainWeather):
             raise TypeError("Invalid type, required domain weather")
@@ -46,6 +47,7 @@ class Card:
         self._is_daytime = sun_service.is_daytime(
             datetime.datetime.now(location.timezone)
         )
+        self._updated = updated
 
     def _translate_direction(self, direction):
         if direction == Direction.E:
@@ -109,6 +111,10 @@ class Card:
     @property
     def source(self):
         return self._source
+
+    @property
+    def updated(self) -> datetime.datetime:
+        return self._updated
 
     @property
     def condition(self):

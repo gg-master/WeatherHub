@@ -1,27 +1,29 @@
 import datetime
 
-import pytz
-from app.controllers.cache.cacher import PickleCacher
-from app.controllers.views.dayblock import Block
-from app.controllers.views.daycard import Card
-from app.controllers.views.hourlycard import HourlyCard
+from app.views.dayblock import Block
+from app.views.daycard import Card
+from app.views.hourlycard import HourlyCard
 from app.services.domain.dto.location import Location
 
 
-class CachableList(list):
-    _cached_timestamp: int
-
-
-@PickleCacher(1)
 def form_blocks(location: Location, current_weather, forecast):
-    result = CachableList()
-    now_date = datetime.datetime.now(location.timezone)
-    card_list = map(lambda x: Card(x, location, x.provider), current_weather)
+    result = []
+    location_date = datetime.datetime.now(location.timezone)
+
+    card_list = filter(
+        lambda x: x is not None,
+        map(
+            lambda x: Card(
+                x, location, x.provider,
+                x.datetime.replace(tzinfo=datetime.timezone.utc)) if x is not None else None,
+            current_weather,
+        ),
+    )
     result.append(
         Block(
             day_rel="Сейчас",
-            date=now_date,
-            city_in="в г. " + location.place,
+            date=location_date,
+            city_in=location.place,
             cards=list(enumerate(card_list)),
             location=location,
             is_time_viewed=True,
@@ -32,10 +34,14 @@ def form_blocks(location: Location, current_weather, forecast):
         day_count = max(len(wforecast.days), day_count)
     for day in range(day_count):
         day_cards = []
-        date = now_date + datetime.timedelta(days=day)
+        date = location_date + datetime.timedelta(days=day)
         for wforecast in forecast:
+            if wforecast is None:
+                continue
             if day < len(wforecast.days):
-                card = Card(wforecast.days[day], location, wforecast.provider)
+                card = Card(
+                    wforecast.days[day], location, wforecast.provider,
+                    wforecast.datetime)
                 day_cards.append(card)
 
         if day == 0:
@@ -49,31 +55,30 @@ def form_blocks(location: Location, current_weather, forecast):
             Block(
                 day_rel=day_rel,
                 date=date,
-                city_in="в г. " + location.place,
+                city_in=location.place,
                 cards=list(enumerate(day_cards)),
                 location=location,
                 is_time_viewed=False,
             )
         )
-    result._cached_timestamp = int(datetime.datetime.now().timestamp())
     return result
 
 
-@PickleCacher(1)
-def form_hourly_blocks(forecast, location):
-    result = CachableList()
-    now_date = datetime.datetime.now(location.timezone)
+def form_hourly_blocks(location, forecast):
+    result = []
+    location_date = datetime.datetime.now(location.timezone)
     day_count = 0
     for wforecast in forecast:
         day_count = max(len(wforecast.days), day_count)
     for day in range(day_count):
         day_cards = []
-        date = now_date + datetime.timedelta(days=day)
+        date = location_date + datetime.timedelta(days=day)
         for wforecast in forecast:
             if day < len(wforecast.days):
                 if wforecast.days[day].hourly is not None:
                     card = HourlyCard(
                         date,
+                        wforecast.datetime,
                         wforecast.days[day].hourly,
                         location,
                         wforecast.provider,
@@ -92,11 +97,10 @@ def form_hourly_blocks(forecast, location):
                 Block(
                     day_rel=day_rel,
                     date=date,
-                    city_in="в г. " + location.place,
+                    city_in=location.place,
                     cards=list(enumerate(day_cards)),
                     location=location,
                     is_time_viewed=False,
                 )
             )
-    result._cached_timestamp = int(datetime.datetime.now().timestamp())
     return result
