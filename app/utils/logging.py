@@ -17,6 +17,9 @@ def setup_logging_queue() -> None:
     root = logging.getLogger()
     root.setLevel(logging.DEBUG)
 
+    logging.getLogger('httpcore').setLevel(logging.INFO)
+    logging.getLogger('httpx').setLevel(logging.INFO)
+
     root.addHandler(queue_handler)
     root.addHandler(console_handler)
 
