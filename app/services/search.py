@@ -1,4 +1,3 @@
-
 from typing import List
 import urllib.parse
 from app.services.domain.dto.location import Location
@@ -20,10 +19,6 @@ async def find_location(lang: str, query: str) -> List[Location]:
     if status != 200:
         raise ConnectionError(status)
 
-    allowed_kinds = ["locality"]
-    filtered = list(
-        filter(lambda x: x.get("kind") in allowed_kinds, to_dict(text)[1])
-    )
+    allowed_kinds = ["locality", "weather"]
+    filtered = list(filter(lambda x: x.get("kind") in allowed_kinds, to_dict(text)[1]))
     return list(map(lambda x: Location(x["name"], "", x["lat"], x["lon"]), filtered))
-
-    

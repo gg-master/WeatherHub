@@ -25,7 +25,8 @@ class AsyncPickleCacher(Cacher):
         if not os.path.isdir(self.DEFAULT_PATH):
             os.mkdir(self.DEFAULT_PATH)
 
-    def compute_hash(self, tuple):
+    @staticmethod
+    def compute_hash(tuple):
         m = md5()
         for obj in tuple:
             m.update(str(obj).encode())
@@ -36,7 +37,7 @@ class AsyncPickleCacher(Cacher):
         async def _func_cached_wrapper(*args, **kwargs):
             time_measure = time.time()
             cached_args = tuple(args[: self._nargs]) + tuple([func.__name__])
-            filename = self.compute_hash(cached_args)
+            filename = AsyncPickleCacher.compute_hash(cached_args)
             is_reload_required = True
             filepath = os.path.join(self.DEFAULT_PATH, filename)
             if os.path.exists(filepath):
@@ -52,7 +53,6 @@ class AsyncPickleCacher(Cacher):
                         time.sleep(
                             self.FUNC_CALL_DELTA - time_measure + func._called_timestamp
                         )
-                print(args, func)
                 result = await func(*args, **kwargs)
                 result._cached_timestamp = int(datetime.datetime.now().timestamp())
                 func._called_timestamp = int(datetime.datetime.now().timestamp())

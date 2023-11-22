@@ -56,6 +56,8 @@ class WeatherCondition:
             values = WeatherCondition.PRECIPITATION_VALUES
         elif type == WeatherCondition.PRECIPITATION_TYPE:
             values = WeatherCondition.PRECIPITATION_TYPE_VALUES
+        else:
+            raise ValueError("Invalid number")
         if isinstance(value, str):
             if value in values:
                 return values[value]

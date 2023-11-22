@@ -56,6 +56,6 @@ class HourlyCard:
             image_name += str(forecast.condition.cloudness)
 
         image_name += str(forecast.condition.precipitation)
-        image_name += str(forecast.condition._precipitation_type)
+        image_name += str(forecast.condition.precipitation_type)
 
         return f"img/foreca_conditions/{image_name}.png"

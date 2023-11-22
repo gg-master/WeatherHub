@@ -104,7 +104,7 @@ class Card:
             image_name += str(self._condition.cloudness)
 
         image_name += str(self._condition.precipitation)
-        image_name += str(self._condition._precipitation_type)
+        image_name += str(self._condition.precipitation_type)
 
         return f"img/foreca_conditions/{image_name}.png"
 

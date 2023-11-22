@@ -84,7 +84,7 @@ class Mapper:
                 )
             )
         return DomainWeatherForecast(
-            datetime=datetime.datetime.utcnow(),
+            datetime=datetime.datetime.now(datetime.timezone.utc),
             provider="foreca",
             location=None,
             days=days,
