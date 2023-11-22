@@ -1,3 +1,5 @@
+import datetime
+import logging
 from typing import List
 
 from app.services.domain.dto.conditions import WeatherCondition
@@ -20,10 +22,17 @@ from app.services.infrastructure.weather_providers.yandex.dto import (
 
 
 class Mapper:
+    _logger = logging.getLogger(__name__)
+
     @staticmethod
     def current_to_domain(current: CurrentWeather) -> DomainCurrentWeather:
+        # Probably a parsing error
         if current is None:
+            Mapper._logger.warn(
+                "CurrentWeather is None and cant be converted"
+            )
             return None
+        
         return DomainCurrentWeather(
             provider="yandex.pogoda",
             location=None,
@@ -38,20 +47,29 @@ class Mapper:
             condition=WeatherCondition(
                 *WC.weather_condition(current.condition)
             ),
-            wind_gust=None
+            wind_gust=None,
         )
 
     @staticmethod
     def forecast_to_domain(
         forecast: List[DayForecast],
     ) -> DomainWeatherForecast:
+        # Probably a parsing error
         if forecast is None:
+            Mapper._logger.warn("Forecast is None and cant be converted")
             return None
+        
         days: List[DomainDayForecast] = []
         day: DayForecast
         for day in forecast:
+
+            # Probably a parsing error
             if day is None:
+                Mapper._logger.warn(
+                    "Some day in Forecast is None and cant be converted"
+                )
                 continue
+
             hours: List[DomainHourlyForecast] = []
             hour: HourForecast
             if day.hourly is not None:
@@ -69,7 +87,7 @@ class Mapper:
                                 *WC.weather_condition(hour.condition)
                             ),
                             time=hour.time,
-                            wind_gust=None
+                            wind_gust=None,
                         )
                     )
             else:
@@ -91,10 +109,11 @@ class Mapper:
                     sun=SunPosition(
                         day.date, day.sunrise, day.sunset, day.daylength
                     ),
-                    wind_gust=None
+                    wind_gust=None,
                 )
             )
         return DomainWeatherForecast(
+            datetime=datetime.datetime.now(datetime.timezone.utc),
             provider="yandex.pogoda",
             location=None,
             days=days,

@@ -1,5 +1,6 @@
 import asyncio
 import datetime
+import logging
 from typing import List
 from bs4 import BeautifulSoup as bs
 
@@ -14,7 +15,9 @@ from app.utils.requests import fetch_url, to_dict, to_json
 
 
 class YandexPogodaProvider:
-    CURRENT_URL = "https://yandex.ru/pogoda/?lat={}&lon={}"
+    _logger = logging.getLogger(__name__)
+
+    CURRENT_URL = "https://yandex.ru/pogoda/ru-RU/?lat={}&lon={}"
     FORECAST_URL = (
         "https://yandex.ru/pogoda/ru-RU/details/day-{}?lat={}&lon={}"
     )
@@ -31,6 +34,7 @@ class YandexPogodaProvider:
             self.CURRENT_URL.format(self._location.lat, self._location.long)
         )
         if status != 200:
+            self._logger.warn("Couldn't get the current weather page")
             return None
         try:
             soup = bs(text, "lxml")
@@ -80,8 +84,7 @@ class YandexPogodaProvider:
             )
 
         except AttributeError as e:
-            # TODO добавить логгирование
-            print(e)
+            self._logger.error("Error parsing current weather")
             return None
 
     async def get_forecast(self) -> List[DayForecast]:
@@ -97,6 +100,7 @@ class YandexPogodaProvider:
             )
         )
         if status != 200:
+            self._logger.warn("Couldn't get the weather forecast page")
             return None
         try:
             soup = bs(text, "lxml")
@@ -112,7 +116,7 @@ class YandexPogodaProvider:
                             hour["time"]
                         ).time(),
                         temp=hour["temperature"],
-                        condition="icon_thumb_" + hour["icon"],
+                        condition=hour["icon"],
                         feel_temp=hour["feelsLike"],
                         pressure=hour["pressure"],
                         wind_speed=hour["windSpeed"],
@@ -125,18 +129,17 @@ class YandexPogodaProvider:
                 )
             return hours
         except (AttributeError, KeyError) as e:
-            print(e)
-            # TODO добавить логгирование
+            self._logger.error("Error parsing hourly weather")
             return None
 
     def _get_daypart_name(self, time: datetime.time) -> str:
-        if 12 < time.hour < 18:
+        if 12 <= time.hour < 18:
             return "day"
-        elif 18 < time.hour < 23:
+        elif 18 <= time.hour <= 23:
             return "evening"
-        elif 0 < time.hour < 6:
+        elif 0 <= time.hour < 6:
             return "night"
-        elif 6 < time.hour < 12:
+        elif 6 <= time.hour < 12:
             return "morning"
 
     async def _get_dayforecast(self, day: int) -> DayForecast:
@@ -147,6 +150,7 @@ class YandexPogodaProvider:
         )
         hours = await self._get_hourly(day)
         if status != 200:
+            self._logger.warn("Couldn't get the day forecast page")
             return None
         try:
             daypart = self._get_daypart_name(
@@ -165,21 +169,22 @@ class YandexPogodaProvider:
                 wind_speed=day_weather["parts"][daypart]["windSpeed"],
                 wind_direction=day_weather["parts"][daypart]["windDirection"],
                 humidity=day_weather["parts"][daypart]["humidity"],
-                condition="icon_thumb_"
-                + day_weather["parts"][daypart]["icon"],
+                condition=day_weather["parts"][daypart]["icon"],
                 sunrise=datetime.datetime.fromtimestamp(
-                    day_weather["sunriseTimestamp"]
+                    int(day_weather["sunriseTimestamp"])
                 ),
                 sunset=datetime.datetime.fromtimestamp(
-                    day_weather["sunsetTimestamp"]
-                ),
-                daylength=(
                     int(day_weather["sunsetTimestamp"])
-                    - int(day_weather["sunriseTimestamp"])
-                )
-                // 60,
+                ),
+                daylength=round(
+                    (
+                        int(day_weather["sunsetTimestamp"])
+                        - int(day_weather["sunriseTimestamp"])
+                    )
+                    / 60
+                ),
                 hourly=hours,
             )
         except (AttributeError, KeyError) as e:
-            # TODO добавить логгирование
+            self._logger.error("Error parsing day weather")
             return None
