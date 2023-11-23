@@ -7,6 +7,9 @@ from typing import Callable
 from hashlib import md5
 
 
+ENABLE_CACHE = True
+
+
 class Cacher:
     def __init__(self, nargs=0):
         self._nargs = nargs
@@ -22,8 +25,6 @@ class AsyncPickleCacher(Cacher):
 
     def __init__(self, nargs=0):
         super().__init__(nargs)
-        if not os.path.isdir(self.DEFAULT_PATH):
-            os.mkdir(self.DEFAULT_PATH)
 
     @staticmethod
     def compute_hash(tuple):
@@ -35,6 +36,8 @@ class AsyncPickleCacher(Cacher):
     def __call__(self, func) -> Callable:
         @functools.wraps(func)
         async def _func_cached_wrapper(*args, **kwargs):
+            if not os.path.isdir(self.DEFAULT_PATH):
+                os.mkdir(self.DEFAULT_PATH)
             time_measure = time.time()
             cached_args = tuple(args[: self._nargs]) + tuple([func.__name__])
             filename = AsyncPickleCacher.compute_hash(cached_args)
@@ -62,4 +65,7 @@ class AsyncPickleCacher(Cacher):
             else:
                 return data
 
-        return _func_cached_wrapper
+        if ENABLE_CACHE:
+            return _func_cached_wrapper
+        else:
+            return func

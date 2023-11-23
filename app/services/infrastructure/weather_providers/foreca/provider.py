@@ -10,17 +10,17 @@ from app.utils.requests import fetch_url, to_dict
 
 class ForecaParser:
     SEARCH_URL = "https://api.foreca.net/locations/search/{}.json"
+    LOCATION_URL = "https://api.foreca.net/locations/{}.json"
     FORECAST_URL = "https://api.foreca.net/data/favorites/{}.json"
     HOURLY_URL = "https://www.foreca.com/{}/{}/hourly?day={}"
     CURRENT_URL = "https://www.foreca.com/{}/{}"
 
+    COORDS_ACCURACY = 1000
+
     @classmethod
     async def create_for(cls, location: Location) -> "ForecaParser":
         self = ForecaParser()
-        self._place = None
-        locations = await self._search_place(location.place)
-        if len(locations):
-            self._place = locations[0]
+        self._place = await self._search_place_by_coords(location.lat, location.long)
         return self
 
     @property
@@ -68,6 +68,32 @@ class ForecaParser:
             )
             result.append(weather)
         return result
+
+    async def _search_place_by_coords(self, lat, long):
+        status, text = await fetch_url(
+            self.LOCATION_URL.format(f"{lat},{long}"),
+            params={"accuracy": self.COORDS_ACCURACY},
+        )
+        if status != 200:
+            return
+        place = to_dict(text)
+        address = [
+            place.get("defaultName", "").replace(" ", "-"),
+            place.get("admName", "").replace(" ", "-"),
+            place.get("defaultCountryName", "").replace(" ", "-"),
+        ]
+        if "" in address:
+            address.remove("")
+        address = "-".join(address)
+        return Place(
+            place["id"],
+            address,
+            place["name"],
+            place["countryName"],
+            place["timezone"],
+            place["lat"],
+            place["lon"],
+        )
 
     async def _search_place(self, city_query) -> List[Place]:
         status, text = await fetch_url(
