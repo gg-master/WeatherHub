@@ -7,7 +7,6 @@ import requests
 import urllib.parse
 import json
 from pprint import pprint
-from grequests import get
 
 # from app.services.infrastructure.weather_providers.providers_contract import (
 #     Location,
@@ -116,6 +115,6 @@ def find_city(city_name: str, lang="ru_RU"):
 # lat, lon = result['lat'], result['lon']
 # get_weather_by_coordinates(lat, lon)
 
-
-resp = get("https://yandex.ru/pogoda/ru-RU/details?lat=51.66195309907495&lon=39.166753999409096")
+from requests import get
+resp = get("https://yandex.ru/pogoda/?lat=51.66195309907495&lon=39.166753999409096")
 print(resp.text)

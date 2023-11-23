@@ -117,6 +117,8 @@ class DayForecast:
     feel_temp: int
     wind_speed: int
     wind_direction: int
+    wind_gust: int
+    pressure: int
     humidity: int
     condition: str
     sunrise: datetime.time

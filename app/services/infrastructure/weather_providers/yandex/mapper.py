@@ -36,7 +36,7 @@ class Mapper:
         return DomainCurrentWeather(
             provider="yandex.pogoda",
             location=None,
-            date=current.datetime,
+            datetime=current.datetime,
             temp=Temperature(current.temp, current.feel_temp),
             wind=Wind(
                 current.wind_speed,
@@ -94,22 +94,22 @@ class Mapper:
                 hours = None
             days.append(
                 DomainDayForecast(
-                    temp=Temperature(day.temp, None),
+                    temp=Temperature(day.temp, day.feel_temp),
                     wind=Wind(
                         day.wind_speed, WC.wind_direction(day.wind_direction)
                     ),
                     humidity=day.humidity * 0.01,
-                    pressure=None,
+                    pressure=day.pressure,
                     condition=WeatherCondition(
                         *WC.weather_condition(day.condition)
                     ),
                     date=day.date,
-                    min_temp=Temperature(day.feel_temp, None),
+                    min_temp=None,
                     hourly=hours,
                     sun=SunPosition(
                         day.date, day.sunrise, day.sunset, day.daylength
                     ),
-                    wind_gust=None,
+                    wind_gust=day.wind_gust,
                 )
             )
         return DomainWeatherForecast(

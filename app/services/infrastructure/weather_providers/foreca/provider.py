@@ -148,7 +148,7 @@ class ForecaParser:
         result = to_dict(text)[self._place.id]
         days = []
         hours = await asyncio.gather(*[self._get_hourly(i) for i in range(10)])
-        for i, day in enumerate(result):
+        for i, day in enumerate(result[:10]):
             day = DayForecast(
                 dateparser.parse(day["date"]).date(),
                 day["tmin"],

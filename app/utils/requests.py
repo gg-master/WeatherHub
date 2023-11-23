@@ -1,4 +1,5 @@
 import json
+import aiohttp
 import httpx
 
 
@@ -10,9 +11,17 @@ HEADERS = {
 async def fetch_url(url, headers={}, params={}):
     headers = dict(headers)
     headers.update(HEADERS)
-    async with httpx.AsyncClient() as client:
-        response: httpx.Response = await client.get(url=url, headers=headers, params=params, follow_redirects=True)
+    async with httpx.AsyncClient(follow_redirects=True) as client:
+        response: httpx.Response = await client.get(url=url, headers=headers, params=params, timeout=None)
         return response.status_code, response.text
+
+
+async def aiohttp_fetch(url, headers={}, params={}):
+    headers = dict(headers)
+    headers.update(HEADERS)
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url, headers=HEADERS, params=params, allow_redirects=True) as response:
+            return response.status, await response.text()
 
 
 def to_dict(response):
