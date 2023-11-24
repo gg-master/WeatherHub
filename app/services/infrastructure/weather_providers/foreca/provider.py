@@ -71,7 +71,7 @@ class ForecaParser:
 
     async def _search_place_by_coords(self, lat, long):
         status, text = await fetch_url(
-            self.LOCATION_URL.format(f"{lat},{long}"),
+            self.LOCATION_URL.format(f"{long},{lat}"),
             params={"accuracy": self.COORDS_ACCURACY},
         )
         if status != 200:
