@@ -109,7 +109,7 @@ class Mapper:
                     sun=SunPosition(
                         day.date, day.sunrise, day.sunset, day.daylength
                     ),
-                    wind_gust=day.wind_gust,
+                    wind_gust=Wind(day.wind_gust, None),
                 )
             )
         return DomainWeatherForecast(
