@@ -126,8 +126,8 @@ class YandexPogodaProvider:
                 wind_direction=wind_dir,
             )
 
-        except AttributeError as e:
-            self._logger.error(f"Error parsing current weather. Error: {e}")
+        except Exception as e:
+            self._logger.error(f"Error parsing current weather. #> {e}")
             return None
 
     async def get_forecast(self) -> List[DayForecast]:
@@ -171,8 +171,8 @@ class YandexPogodaProvider:
                     )
                 )
             return hours
-        except (AttributeError, KeyError) as e:
-            self._logger.error("Error parsing hourly weather")
+        except Exception as e:
+            self._logger.error(f"Error parsing hourly weather. #> {e}")
             return None
 
     def _get_daypart_name(self, time: datetime.time) -> str:
@@ -230,6 +230,6 @@ class YandexPogodaProvider:
                 ),
                 hourly=hours,
             )
-        except (AttributeError, KeyError) as e:
-            self._logger.error("Error parsing day weather")
+        except Exception as e:
+            self._logger.error(f"Error parsing day weather. #> {e}")
             return None
