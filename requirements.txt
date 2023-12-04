@@ -8,3 +8,4 @@ python-dotenv
 dateparser
 Flask-Moment
 timezonefinder
+httpx
