@@ -39,8 +39,8 @@ function setMoreDownListener(moreDownSelector, cardSelector, displayMode, maxCou
     for (let i = 0; i < moreDown.length; i++) {
         let cards = moreDown[i].parentElement.querySelectorAll(cardSelector);
         if (cards.length > maxCount) {
-            for (let i = maxCount; i < cards.length; i++) {
-                cards[i].style.display = 'none';
+            for (let j = maxCount; j < cards.length; j++) {
+                cards[j].style.display = 'none';
             }
         }
         moreDown[i].isOpened = false;
