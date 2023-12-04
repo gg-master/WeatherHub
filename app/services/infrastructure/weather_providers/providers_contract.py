@@ -7,25 +7,27 @@ from app.services.domain.dto.weather import CurrentWeather, WeatherForecast
 
 class WeatherProvider(Protocol):
     @abstractmethod
-    async def create_for(self, location: Location) -> 'WeatherProvider':
+    async def create_for(self, location: Location) -> "WeatherProvider":
         ...
 
     @abstractmethod
-    async def get_current(self) -> 'CurrentWeather':
+    async def get_current(self) -> Optional[CurrentWeather]:
         ...
 
     @abstractmethod
-    async def get_forecast(self) -> 'WeatherForecast':
+    async def get_forecast(self) -> Optional[WeatherForecast]:
         ...
 
 
 class ProviderMapper(Protocol):
     @abstractmethod
-    def current_to_domain(self, current: 'CurrentWeather') -> CurrentWeather:
+    def current_to_domain(
+        self, current: "CurrentWeather"
+    ) -> Optional[CurrentWeather]:
         ...
 
     @abstractmethod
     def forecast_to_domain(
-        self, forecast: 'WeatherForecast'
-    ) -> WeatherForecast:
+        self, forecast: "WeatherForecast"
+    ) -> Optional[WeatherForecast]:
         ...

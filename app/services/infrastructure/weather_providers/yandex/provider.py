@@ -1,7 +1,7 @@
 import asyncio
 import datetime
 import logging
-from typing import List
+from typing import List, Optional
 from bs4 import BeautifulSoup as bs
 import pytz
 
@@ -12,7 +12,7 @@ from app.services.infrastructure.weather_providers.yandex.dto import (
     Location,
 )
 
-from app.utils.requests import aiohttp_fetch, fetch_url, to_dict, to_json
+from app.utils.requests import aiohttp_fetch, fetch_url, to_dict
 
 
 class YandexPogodaProvider:
@@ -29,7 +29,7 @@ class YandexPogodaProvider:
         self._location = location
         return self
 
-    async def get_current(self):
+    async def get_current(self) -> Optional[CurrentWeather]:
         self._location: Location
         path = self.CURRENT_URL.format(self._location.lat, self._location.long)
         headers = {
@@ -130,12 +130,12 @@ class YandexPogodaProvider:
             self._logger.error(f"Error parsing current weather. #> {e}")
             return None
 
-    async def get_forecast(self) -> List[DayForecast]:
+    async def get_forecast(self) -> Optional[List[DayForecast]]:
         return await asyncio.gather(
             *[self._get_dayforecast(i) for i in range(10)]
         )
 
-    async def _get_hourly(self, day: int):
+    async def _get_hourly(self, day: int) -> Optional[List[HourForecast]]:
         self._location: Location
         status, text = await fetch_url(
             self.FORECAST_URL.format(
@@ -185,7 +185,7 @@ class YandexPogodaProvider:
         elif 6 <= time.hour < 12:
             return "morning"
 
-    async def _get_dayforecast(self, day: int) -> DayForecast:
+    async def _get_dayforecast(self, day: int) -> Optional[DayForecast]:
         status, text = await fetch_url(
             self.FORECAST_URL.format(
                 day, self._location.lat, self._location.long

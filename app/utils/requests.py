@@ -1,5 +1,6 @@
-import json
 import aiohttp
+import logging
+import json
 import httpx
 
 
@@ -21,6 +22,7 @@ async def aiohttp_fetch(url, headers={}, params={}):
     headers.update(HEADERS)
     async with aiohttp.ClientSession() as session:
         async with session.get(url, headers=HEADERS, params=params, allow_redirects=True) as response:
+            logging.getLogger("aiohttp").info(f'HTTP Request: GET {url} "{response.status}"')
             return response.status, await response.text()
 
 
