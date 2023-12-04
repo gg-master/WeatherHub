@@ -33,10 +33,10 @@ class OpenWeatherMapFetcher:
         for row in json_data:
             time = datetime.datetime.fromtimestamp(row.get("dt", 0)).time().hour
             time = datetime.time(time)
-            temp = row.get("temp")
-            feel_temp = row.get("feels_like")
+            temp = round(row.get("temp"))
+            feel_temp = round(row.get("feels_like"))
             condition = str(int(row.get("clouds", 0) / 20)) + WeatherConverter.convert_precipitation_values(
-                row.get("weather", {})[0].get("id", {}))
+                row.get("weather", {})[0].get("icon", {}))
             humidity = row.get("humidity")
             wind_speed = row.get("wind_speed")
             wind_direction = Direction.from_degrees(row.get("wind_deg"))
@@ -58,10 +58,10 @@ class OpenWeatherMapFetcher:
             return None
 
         json_data = to_dict(text).get("current")
-        temp = json_data.get("temp")
-        feel_temp = json_data.get("feels_like")
+        temp = round(json_data.get("temp"))
+        feel_temp = round(json_data.get("feels_like"))
         condition = str(int(json_data.get("clouds", 0) / 20)) + WeatherConverter.convert_precipitation_values(
-            json_data.get("weather", {})[0].get("id", {}))
+            json_data.get("weather", {})[0].get("icon", {}))
         humidity = json_data.get("humidity")
         pressure = json_data.get("pressure")
         wind_speed = json_data.get("wind_speed")
@@ -92,13 +92,13 @@ class OpenWeatherMapFetcher:
         for i, day in enumerate(result):
             day = DayForecast(
                 datetime.datetime.fromtimestamp(day["dt"]).date(),
-                day["temp"]["min"],
-                day["temp"]["max"],
+                round(day["temp"]["min"]),
+                round(day["temp"]["max"]),
                 day["wind_speed"],
                 day["wind_deg"],
                 day["humidity"],
                 str(int(day.get("clouds", 0) / 20)) + WeatherConverter.convert_precipitation_values(
-                    day.get("weather", {})[0].get("id", {})),
+                    day.get("weather", {})[0].get("icon", {})),
                 day["wind_gust"],
                 datetime.datetime.fromtimestamp(day["sunrise"]).time(),
                 datetime.datetime.fromtimestamp(day["sunset"]).time(),

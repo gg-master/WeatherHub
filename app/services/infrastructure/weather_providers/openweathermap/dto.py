@@ -5,35 +5,17 @@ from typing import List
 
 class WeatherConverter:
     @staticmethod
-    def convert_precipitation_values(condition: int):
-        if condition // 100 in [2, 3]:
-            if condition % 10 == 0:
-                return '10'
-            elif condition % 10 == 1:
-                return '20'
-            elif condition % 10 == 2:
-                return '30'
-        elif condition // 100 == 5:
-            if condition % 10 == 0:
-                return '10'
-            elif condition % 10 == 1:
-                return '20'
-            elif condition % 10 == 2:
-                return '30'
-            elif condition % 10 == 3:
-                return '40'
-        elif condition // 100 == 6:
-            if condition % 10 == 0:
-                return '12'
-            elif condition % 10 == 1:
-                return '22'
-            elif condition % 10 == 2:
-                return '32'
-            elif condition % 10 == 6:
-                return '32'
-
-        elif condition // 100 in [7, 8]:
+    def convert_precipitation_values(condition: str):
+        if condition[:2] in ["01", "02", "03", "04", "50"]:
             return '00'
+        elif condition[:2] == "09":
+            return '20'
+        elif condition[:2] == "10":
+            return '30'
+        elif condition[:2] == "11":
+            return '40'
+        elif condition[:2] == "13":
+            return '32'
 
     @staticmethod
     def weather_condition(condition: str):

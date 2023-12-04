@@ -30,7 +30,7 @@ class Mapper:
             temp=Temperature(current.temp, current.feel_temp),
             wind=Wind(
                 current.wind_speed,
-                Direction.from_degrees(current.wind_direction),
+                current.wind_direction,
             ),
             humidity=current.humidity * 0.01,
             pressure=current.pressure,
@@ -54,7 +54,7 @@ class Mapper:
                             temp=Temperature(hour.temp, hour.feel_temp),
                             wind=Wind(
                                 hour.wind_speed,
-                                Direction.from_degrees(hour.wind_direction),
+                                hour.wind_direction,
                             ),
                             humidity=hour.humidity * 0.01,
                             pressure=None,
@@ -62,7 +62,7 @@ class Mapper:
                                 *WC.weather_condition(hour.condition)
                             ),
                             time=hour.time,
-                            wind_gust=Wind(hour.wind_gust, Direction.from_degrees(hour.wind_direction)),
+                            wind_gust=Wind(hour.wind_gust, hour.wind_direction),
                         )
                     )
             else:
