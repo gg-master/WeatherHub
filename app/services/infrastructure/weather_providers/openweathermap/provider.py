@@ -5,8 +5,9 @@ from typing import List, Optional
 import asyncio
 import os
 
+
 class OpenWeatherMapFetcher:
-    URL = 'https://api.openweathermap.org/data/2.5/onecall?lat={}&lon={}&appid={}&units={}'
+    URL = "https://api.openweathermap.org/data/2.5/onecall?lat={}&lon={}&appid={}&units={}"
 
     @classmethod
     async def create_for(cls, location: Location) -> "OpenWeatherMapFetcher":
@@ -24,7 +25,12 @@ class OpenWeatherMapFetcher:
 
     async def _get_hourly(self, day: int) -> List[HourForecast]:
         status, text = await fetch_url(
-            self.URL.format(self._place.lat, self._place.long, os.getenv("OPENWEATHERMAP_KEY"), 'metric')
+            self.URL.format(
+                self._place.lat,
+                self._place.long,
+                os.getenv("OPENWEATHERMAP_KEY"),
+                "metric",
+            )
         )
         if status != 200:
             return []
@@ -35,15 +41,23 @@ class OpenWeatherMapFetcher:
             time = datetime.time(time)
             temp = round(row.get("temp"))
             feel_temp = round(row.get("feels_like"))
-            condition = str(int(row.get("clouds", 0) / 20)) + WeatherConverter.convert_precipitation_values(
-                row.get("weather", {})[0].get("icon", {}))
+            condition = WeatherConverter.convert_precipitation_values(
+                row.get("weather", {})[0].get("icon", {})
+            )
             humidity = row.get("humidity")
-            wind_speed = row.get("wind_speed")
+            wind_speed = round(row.get("wind_speed"), 1)
             wind_direction = Direction.from_degrees(row.get("wind_deg"))
-            wind_gust = row.get("wind_gust")
+            wind_gust = round(row.get("wind_gust"), 1)
             # precipitation
             weather = HourForecast(
-                time, temp, feel_temp, condition, humidity, wind_speed, wind_direction, wind_gust
+                time,
+                temp,
+                feel_temp,
+                condition,
+                humidity,
+                wind_speed,
+                wind_direction,
+                wind_gust,
             )
             result.append(weather)
         return result
@@ -52,7 +66,12 @@ class OpenWeatherMapFetcher:
         if not self._place:
             return []
         status, text = await fetch_url(
-            self.URL.format(self._place.lat, self._place.long, os.getenv("OPENWEATHERMAP_KEY"), 'metric')
+            self.URL.format(
+                self._place.lat,
+                self._place.long,
+                os.getenv("OPENWEATHERMAP_KEY"),
+                "metric",
+            )
         )
         if status != 200:
             return None
@@ -60,8 +79,9 @@ class OpenWeatherMapFetcher:
         json_data = to_dict(text).get("current")
         temp = round(json_data.get("temp"))
         feel_temp = round(json_data.get("feels_like"))
-        condition = str(int(json_data.get("clouds", 0) / 20)) + WeatherConverter.convert_precipitation_values(
-            json_data.get("weather", {})[0].get("icon", {}))
+        condition = WeatherConverter.convert_precipitation_values(
+            json_data.get("weather", {})[0].get("icon", {})
+        )
         humidity = json_data.get("humidity")
         pressure = json_data.get("pressure")
         wind_speed = json_data.get("wind_speed")
@@ -76,14 +96,21 @@ class OpenWeatherMapFetcher:
             humidity,
             pressure,
             wind_speed,
-            #gust,
+            # gust,
             wind_direction,
         )
 
     async def get_forecast(self) -> List[DayForecast]:
         if not self._place:
             return []
-        status, text = await fetch_url(self.URL.format(self._place.lat, self._place.long, os.getenv("OPENWEATHERMAP_KEY"), 'metric'))
+        status, text = await fetch_url(
+            self.URL.format(
+                self._place.lat,
+                self._place.long,
+                os.getenv("OPENWEATHERMAP_KEY"),
+                "metric",
+            )
+        )
         if status != 200:
             return []
         result = to_dict(text)["daily"]
@@ -94,15 +121,16 @@ class OpenWeatherMapFetcher:
                 datetime.datetime.fromtimestamp(day["dt"]).date(),
                 round(day["temp"]["min"]),
                 round(day["temp"]["max"]),
-                day["wind_speed"],
+                round(day["wind_speed"], 1),
                 day["wind_deg"],
                 day["humidity"],
-                str(int(day.get("clouds", 0) / 20)) + WeatherConverter.convert_precipitation_values(
-                    day.get("weather", {})[0].get("icon", {})),
-                day["wind_gust"],
+                WeatherConverter.convert_precipitation_values(
+                    day.get("weather", {})[0].get("icon", {})
+                ),
+                round(day["wind_gust"], 1),
                 datetime.datetime.fromtimestamp(day["sunrise"]).time(),
                 datetime.datetime.fromtimestamp(day["sunset"]).time(),
-                #int(day["daylen"]),
+                # int(day["daylen"]),
                 hourly=hours[i] if i < 10 else None,
             )
             days.append(day)
