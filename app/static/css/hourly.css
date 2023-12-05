@@ -35,10 +35,10 @@ article .arrowLeft {
 }
 
 article span {
-    width: 876px;
+    width: auto;
     height: 76px;
     margin: 0;
-    margin-left: 13px;
+    /* margin-left: 13px; */
     display: inline-block;
     vertical-align: top;
 }
@@ -96,8 +96,8 @@ span div {
     }
 
     article span {
-        width: 190px;
-        margin-left: 5px;
+        width: auto;
+        /* margin-left: 5px; */
     }
 
     article .arrowLeft {
