@@ -70,17 +70,18 @@ setMoreDownListener(".moreDown", ".card", "inline-block", 3);
 
 const windowInnerWidth = document.documentElement.clientWidth;
 
+// TODO рефакторить этот ужас. Сделать чтобы один код отвечал как за мобильный так и за десктопный вариант отображения
 if (windowInnerWidth < MOBILE_MAX_WIDTH)
 {
     // Просматриваем переход на мобильную версию
     // Удаляем лишние карточки из блоков
     for (let i = 0; i < aside.length; i++)
     {
-        const cards = document.querySelectorAll('.card');
-        for (let i = 0; i < cards.length; i++)
-        {
-            if (i != 0 && i != 3 && i != 6)
-                cards[i].style.display = "none";
+        let cards = document.querySelectorAll('.card');
+        if (cards.length > maxCount) {
+            for (let j = maxCount; j < cards.length; j++) {
+                cards[j].style.display = 'none';
+            }
         }
     }
 } 
