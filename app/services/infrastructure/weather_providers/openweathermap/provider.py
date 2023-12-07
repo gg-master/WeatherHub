@@ -13,6 +13,7 @@ class OpenWeatherMapFetcher:
     async def create_for(cls, location: Location) -> "OpenWeatherMapFetcher":
         self = OpenWeatherMapFetcher()
         self._place = location
+        self._cached_forecast = None
         return self
 
     @property
@@ -23,21 +24,14 @@ class OpenWeatherMapFetcher:
     def place(self, place: Place):
         self._place = place
 
-    async def _get_hourly(self, day: int) -> List[HourForecast]:
-        status, text = await fetch_url(
-            self.URL.format(
-                self._place.lat,
-                self._place.long,
-                os.getenv("OPENWEATHERMAP_KEY"),
-                "metric",
-            )
-        )
-        if status != 200:
-            return []
+    def _get_hourly(self, forecast: dict, required_date: datetime.date) -> List[HourForecast]:
         result = []
-        json_data = to_dict(text).get("hourly")
+        json_data = forecast.get("hourly")
         for row in json_data:
-            time = datetime.datetime.fromtimestamp(row.get("dt", 0)).time().hour
+            dt = datetime.datetime.fromtimestamp(row.get("dt", 0))
+            if dt.date() != required_date:
+                continue
+            time = dt.time().hour
             time = datetime.time(time)
             temp = round(row.get("temp"))
             feel_temp = round(row.get("feels_like"))
@@ -113,12 +107,13 @@ class OpenWeatherMapFetcher:
         )
         if status != 200:
             return []
-        result = to_dict(text)["daily"]
+        forecast = to_dict(text)
+        result = forecast["daily"]
         days = []
-        hours = await asyncio.gather(*[self._get_hourly(i) for i in range(10)])
         for i, day in enumerate(result):
+            required_date = datetime.datetime.fromtimestamp(day["dt"]).date()
             day = DayForecast(
-                datetime.datetime.fromtimestamp(day["dt"]).date(),
+                required_date,
                 round(day["temp"]["min"]),
                 round(day["temp"]["max"]),
                 round(day["wind_speed"], 1),
@@ -131,7 +126,9 @@ class OpenWeatherMapFetcher:
                 datetime.datetime.fromtimestamp(day["sunrise"]).time(),
                 datetime.datetime.fromtimestamp(day["sunset"]).time(),
                 # int(day["daylen"]),
-                hourly=hours[i] if i < 10 else None,
+                hourly=self._get_hourly(forecast, required_date),
             )
+            if len(day.hourly) == 0:
+                day.hourly = None
             days.append(day)
         return days

@@ -14,6 +14,6 @@ if (ALLOWED_ROUTES.indexOf(route) >= 0) {
       window.location.replace(`/${route}`);
     }
   } else {
-    window.location.replace(`/${route}`);
+    window.location.replace(`/${route}?noRedirect=true`);
   }
 }
