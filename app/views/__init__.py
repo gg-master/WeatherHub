@@ -14,8 +14,13 @@ def form_blocks(location: Location, current_weather, forecast):
         lambda x: x is not None,
         map(
             lambda x: Card(
-                x, location, x.provider,
-                x.datetime.replace(tzinfo=datetime.timezone.utc)) if x is not None else None,
+                x,
+                location,
+                x.provider,
+                x.datetime.replace(tzinfo=datetime.timezone.utc),
+            )
+            if x is not None
+            else None,
             current_weather,
         ),
     )
@@ -40,8 +45,11 @@ def form_blocks(location: Location, current_weather, forecast):
                 continue
             if day < len(wforecast.days):
                 card = Card(
-                    wforecast.days[day], location, wforecast.provider,
-                    wforecast.datetime)
+                    wforecast.days[day],
+                    location,
+                    wforecast.provider,
+                    wforecast.datetime,
+                )
                 day_cards.append(card)
 
         if day == 0:
@@ -71,11 +79,16 @@ def form_hourly_blocks(location, forecast):
     for wforecast in forecast:
         day_count = max(len(wforecast.days), day_count)
     for day in range(day_count):
+        min_hour = float("inf")
         day_cards = []
         date = location_date + datetime.timedelta(days=day)
         for wforecast in forecast:
             if day < len(wforecast.days):
                 if wforecast.days[day].hourly is not None:
+                    local_min_hour = min(
+                        map(lambda x: x.time.hour, wforecast.days[day].hourly)
+                    )
+                    min_hour = min(min_hour, local_min_hour)
                     card = HourlyCard(
                         date,
                         wforecast.datetime,
@@ -84,6 +97,9 @@ def form_hourly_blocks(location, forecast):
                         wforecast.provider,
                     )
                     day_cards.append(card)
+
+        for card in day_cards:
+            card.justify_by_min_hour(min_hour)
 
         if day == 0:
             day_rel = "Сегодня"

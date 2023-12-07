@@ -1,18 +1,38 @@
 {% macro show_hourly_card(i, card) %}
 <article>
-    <div class="line">
-        <img src="img/arrow-left-circle-line 1.svg" alt="" class="arrowLeft" type="button" id="btnPrev0">
-        <span class="slider" id="slider0">
-                {% for weather in card.hourly %}
-                <div class="hour">
-                    <h2 class="time">{{weather.time.strftime("%H:%M")}}</h2>
-                    <img class="condition" src="{{ weather.condition_image }}" alt style="max-width: 25px; max-height: 25px;">
-                    <h2 class="temp">{{weather.temp.real}}°</h2>
-                </div>
-                {% endfor %}
-        </span>
-        <img src="img/arrow-right-circle-line 1.svg" alt="" class="arrowRight"  type="button" id="btnNext0">
-    </div>
-    <p>Ист.: <span class="weatherSource">{{card.source}}  <w>обн. {{ moment(card.updated).format('HH:mm') }}</w></span></p>
+  <div class="line">
+    <span class="slider" id="slider0">
+      {% for weather in card.hourly %} {% if weather == None %}
+      <div class="hour" style="visibility: hidden">
+        <h2 class="time">00:00</h2>
+        <img
+          class="condition"
+          src="img/foreca_conditions/d000.png"
+          alt
+          style="max-width: 25px; max-height: 25px"
+        />
+        <h2 class="temp">+00°</h2>
+      </div>
+      {% else %}
+      <div class="hour">
+        <h2 class="time">{{weather.time.strftime("%H:%M")}}</h2>
+        <img
+          class="condition"
+          src="{{ weather.condition_image }}"
+          alt
+          style="max-width: 25px; max-height: 25px"
+        />
+        <h2 class="temp">{{weather.temp.real}}°</h2>
+      </div>
+      {% endif %} {% endfor %}
+    </span>
+  </div>
+  <p>
+    Ист.:
+    <span class="weatherSource"
+      >{{card.source}}
+      <w>обн. {{ moment(card.updated).format('HH:mm') }}</w></span
+    >
+  </p>
 </article>
 {% endmacro %}

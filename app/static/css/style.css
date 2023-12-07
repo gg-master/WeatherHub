@@ -975,3 +975,16 @@ a {
         margin-top: 23px;
     }
 }
+
+.hour-panel {
+    display: flex;
+    justify-content: center;
+}
+
+.arrowLeft {
+    margin: 5px;
+}
+
+.arrowRight {
+    margin: 5px;
+}
