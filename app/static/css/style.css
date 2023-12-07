@@ -57,7 +57,7 @@ header {
 }
 
 .menu .hub {
-    margin-top: 10px;
+    margin-top: 14px;
 }
 
 .menu .language {
@@ -356,8 +356,6 @@ aside .forecastLink {
     text-decoration-line: underline;
     text-transform: lowercase;
     margin: 0;
-    margin-top: 21px;
-    margin-left: 85%;
 }
 
 .card {
@@ -987,4 +985,16 @@ a {
 
 .arrowRight {
     margin: 5px;
+}
+
+a.forecastHref {
+    text-decoration: none;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+.weather-header {
+    display: flex;
+    flex-direction: row;
 }

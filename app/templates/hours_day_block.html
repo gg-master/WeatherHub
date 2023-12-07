@@ -1,24 +1,20 @@
 {% from "hourly_card.html" import show_hourly_card with context %} {% macro
 show_block_with_hours(block) %}
 <aside id="aside" style="margin-top: 31px">
-  <p>
-    <b class="day">{{block.day_rel}}</b>
-    {% if block.is_time_viewed %}
-    <span class="date">{{moment(block.date, True).format('LLL')}}</span>
-    {% else %}
-    <span class="date">{{moment(block.date, True).format('LL')}}</span>
-    {% endif %}
-    <b class="city">{{ block.city_in }}</b>
-  </p>
-  {% if is_daily %}
-  <a href="/hourly?name={{block.location.place}}"
-    ><b class="forecastLink">Почасовой прогноз</b></a
-  >
-  {% else %}
-  <a href="/forecast?name={{block.location.place}}"
-    ><b class="forecastLink">Дневной прогноз</b></a
-  >
-  {% endif %}
+  <div class="weather-header">
+    <p>
+      <b class="day">{{block.day_rel}}</b>
+      {% if block.is_time_viewed %}
+      <span class="date">{{moment(block.date, True).format('LLL')}}</span>
+      {% else %}
+      <span class="date">{{moment(block.date, True).format('LL')}}</span>
+      {% endif %}
+      <b class="city">{{ block.city_in }}</b>
+    </p>
+    <a class="forecastHref" href="/forecast?name={{block.location.place}}"
+      ><b class="forecastLink">Дневной прогноз</b></a
+    >
+  </div>
   <br />
   <div class="hour-panel">
     <img
