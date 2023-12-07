@@ -108,9 +108,13 @@ class Card:
 
         return f"img/foreca_conditions/{image_name}.png"
 
+    def disable_daytime_detection(self):
+        self._is_daytime = True
+        
     @property
     def source(self):
         return self._source
+
 
     @property
     def updated(self) -> datetime.datetime:

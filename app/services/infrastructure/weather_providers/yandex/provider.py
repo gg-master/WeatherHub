@@ -191,11 +191,11 @@ class YandexPogodaProvider:
                 day, self._location.lat, self._location.long
             )
         )
-        hours = await self._get_hourly(day)
         if status != 200:
             self._logger.warn("Couldn't get the day forecast page")
             return None
         try:
+            hours = await self._get_hourly(day)
             daypart = self._get_daypart_name(
                 datetime.datetime.now(tz=self._location.timezone).time()
             )
@@ -205,6 +205,10 @@ class YandexPogodaProvider:
             day_weather = raw_resp["props"]["pageProps"][
                 "detailsMobileServerData"
             ]["weather"]["forecast"]["days"][day + 1]
+
+            if day == 0:
+                hours = hours[datetime.datetime.now(tz=self._location.timezone).time().hour:]
+
             return DayForecast(
                 date=datetime.datetime.fromisoformat(day_weather["time"]),
                 temp=day_weather["parts"][daypart]["temperature"],

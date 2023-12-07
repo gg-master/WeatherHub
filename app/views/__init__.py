@@ -50,6 +50,7 @@ def form_blocks(location: Location, current_weather, forecast):
                     wforecast.provider,
                     wforecast.datetime,
                 )
+                card.disable_daytime_detection()
                 day_cards.append(card)
 
         if day == 0:
