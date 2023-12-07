@@ -1,70 +1,89 @@
 {% macro show_left_menu() %}
 <div class="menu" id="menu">
-    <a href=""><h2 style="vertical-align: top;">Weather</h2></a>
-    <a href=""><h3 class="hub" style="margin: 0;">hub</h3></a>
+  <a href=""><h2 style="vertical-align: top">Weather</h2></a>
+  <a href=""><h3 class="hub" style="margin: 0">hub</h3></a>
+  <div style="display: none">
+    <!-- Hidden because not implemented yet -->
     <select class="language">
-        <option value="Ru">Ru</option>
-        <option value="En">En</option>
-    </select>   
-    <hr>
+      <option value="Ru">Ru</option>
+      <option value="En">En</option>
+    </select>
+    <hr />
     <h2>Настройки</h2>
     <h4>Предпочтительный источник</h4>
     <select>
-        <option>Яндекс. Погода</option>
-        <option>Foreca</option>
-        <option>OpenWeatherMap</option>
+      <option>Яндекс. Погода</option>
+      <option>Foreca</option>
+      <option>OpenWeatherMap</option>
     </select>
     <h4>Температура</h4>
     <h4>Время</h4>
     <div class="button b2" id="button-10">
-        <input type="checkbox" class="checkbox" />
-        <div class="knobs">
-            <span>F°</span>
-        </div>
+      <input type="checkbox" class="checkbox" />
+      <div class="knobs">
+        <span>F°</span>
+      </div>
     </div>
     <div class="button b2 b11" id="button-11">
-        <input type="checkbox" class="checkbox" />
-        <div class="knobs">
-            <span>12ч</span>
-        </div>
+      <input type="checkbox" class="checkbox" />
+      <div class="knobs">
+        <span>12ч</span>
+      </div>
     </div>
     <h4>Осадки</h4>
     <div class="button b2 b12" id="button-12">
-        <input type="checkbox" class="checkbox" />
-        <div class="knobs">
-            <span>in</span>
-        </div>
+      <input type="checkbox" class="checkbox" />
+      <div class="knobs">
+        <span>in</span>
+      </div>
     </div>
     <h4>Скорость ветра</h4>
     <div class="speedRadioButton" id="speedRadioButton">
-        <input type="radio" name="speedRadio" id="mph" value="mph"/>
-        <label for="mph" style="margin-left: 34px;">mph</label>
-        <input type="radio" name="speedRadio" id="kmh" value="kmh"/>
-        <label for="kmh">kmh</label>
-        <input type="radio" name="speedRadio" id="ms" value="ms" checked="checked"/>
-        <label for="ms">m/s</label>
-        <input type="radio" name="speedRadio" id="Bft" value="Bft"/>
-        <label for="Bft">Bft</label>
+      <input type="radio" name="speedRadio" id="mph" value="mph" />
+      <label for="mph" style="margin-left: 34px">mph</label>
+      <input type="radio" name="speedRadio" id="kmh" value="kmh" />
+      <label for="kmh">kmh</label>
+      <input
+        type="radio"
+        name="speedRadio"
+        id="ms"
+        value="ms"
+        checked="checked"
+      />
+      <label for="ms">m/s</label>
+      <input type="radio" name="speedRadio" id="Bft" value="Bft" />
+      <label for="Bft">Bft</label>
     </div>
     <h4>Давление</h4>
     <div class="pressureRadioButton" id="pressureRadioButton">
-        <input type="radio" name="pressureRadio" id="inHg" value="inHg"/>
-        <label for="inHg" style="width: 48px; margin-left: 34px;">inHg</label>
-        <input type="radio" name="pressureRadio" id="hPa" value="hPa" checked="checked"/>
-        <label for="hPa" style="width: 48px;">hPa</label>
-        <input type="radio" name="pressureRadio" id="mmHg" value="mmHg"/>
-        <label for="mmHg" style="width: 64px;">mmHg</label>
+      <input type="radio" name="pressureRadio" id="inHg" value="inHg" />
+      <label for="inHg" style="width: 48px; margin-left: 34px">inHg</label>
+      <input
+        type="radio"
+        name="pressureRadio"
+        id="hPa"
+        value="hPa"
+        checked="checked"
+      />
+      <label for="hPa" style="width: 48px">hPa</label>
+      <input type="radio" name="pressureRadio" id="mmHg" value="mmHg" />
+      <label for="mmHg" style="width: 64px">mmHg</label>
     </div>
-    <hr>
-    <h2 style="width: 193px; display: block;">Прогнозы погоды</h2>
-    <img src="img/ten_dforecast_icon.svg" alt="" class="icons">
-    <a href="/" ><h5 style="margin-left: 0;">Прогноз на 10 дней</h5></a>
-    <img src="img/hours_forecast_icon.svg" style="margin-top: 12px; margin-left: 27px;">
-    <a href="/hourly"><h5 style="margin-top: 15px; margin-left: 0;">Почасовой прогноз</h5></a>
-    <hr>
-    <h2 style="width: 193px; display: block;">Избранные города</h2>
-    <a class="addCurrent" type="button">Добавить текущий</a>
-    <ul class="favorites">
-    </ul>
+  </div>
+  <hr />
+  <h2 style="width: 193px; display: block">Прогнозы погоды</h2>
+  <img src="img/ten_dforecast_icon.svg" alt="" class="icons" />
+  <a href="/"><h5 style="margin-left: 0">Прогноз на 10 дней</h5></a>
+  <img
+    src="img/hours_forecast_icon.svg"
+    style="margin-top: 12px; margin-left: 27px"
+  />
+  <a href="/hourly"
+    ><h5 style="margin-top: 15px; margin-left: 0">Почасовой прогноз</h5></a
+  >
+  <hr />
+  <h2 style="width: 193px; display: block">Избранные города</h2>
+  <a class="addCurrent" type="button">Добавить текущий</a>
+  <ul class="favorites"></ul>
 </div>
 {% endmacro %}

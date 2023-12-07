@@ -1,9 +1,8 @@
-from app.utils.requests import fetch_url, to_dict, to_json
+from typing import List, Optional
+import os
+from app.utils.requests import fetch_url, to_dict
 from app.services.infrastructure.weather_providers.openweathermap.dto import *
 from app.services.domain.utils.enums import Direction
-from typing import List, Optional
-import asyncio
-import os
 
 
 class OpenWeatherMapFetcher:
@@ -24,7 +23,9 @@ class OpenWeatherMapFetcher:
     def place(self, place: Place):
         self._place = place
 
-    def _get_hourly(self, forecast: dict, required_date: datetime.date) -> List[HourForecast]:
+    def _get_hourly(
+        self, forecast: dict, required_date: datetime.date
+    ) -> List[HourForecast]:
         result = []
         json_data = forecast.get("hourly")
         for row in json_data:

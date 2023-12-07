@@ -7,7 +7,7 @@ from typing import Callable
 from hashlib import md5
 
 
-ENABLE_CACHE = False
+ENABLE_CACHE = True
 
 
 class Cacher:

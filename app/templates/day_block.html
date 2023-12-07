@@ -1,28 +1,28 @@
-{% from "day_card.html" import show_card with context %}
-{% from "hourly_card.html" import show_hourly_card with context %}
-
-{% macro show_block(block, is_daily) %}
-<aside id="aside" style="margin-top: 31px;">
-    <p><b class="day">{{block.day_rel}}</b> 
-        {% if block.is_time_viewed %}
-        <span class="date">{{moment(block.date, True).format('LLL')}}</span>
-        {% else %}
-        <span class="date">{{moment(block.date, True).format('LL')}}</span>
-        {% endif %}
-        <b class="city">{{ block.city_in }}</b></p>
-    {% if is_daily %}
-    <a href="/hourly?name={{block.location.place}}"><h6>Почасовой прогноз</h6></a>
+{% from "day_card.html" import show_card with context %} {% from
+"hourly_card.html" import show_hourly_card with context %} {% macro
+show_block(block, is_daily) %}
+<aside id="aside" style="margin-top: 31px">
+  <p>
+    <b class="day">{{block.day_rel}}</b>
+    {% if block.is_time_viewed %}
+    <span class="date">{{moment(block.date, True).format('LLL')}}</span>
     {% else %}
-    <a href="/forecast?name={{block.location.place}}" ><h6>Дневной прогноз</h6></a>
+    <span class="date">{{moment(block.date, True).format('LL')}}</span>
     {% endif %}
-    <br>
-        {% for i, card in block.cards %}
-            {% if is_daily %}
-            {{show_card(i, card)}}
-            {% else %}
-            {{show_hourly_card(i, card)}}
-            {% endif %}
-        {% endfor %}
-    <img src="img/more_btn.svg" alt="" type="button" class="moreDown">
+    <b class="city">{{ block.city_in }}</b>
+  </p>
+  {% if is_daily %}
+  <a href="/hourly?name={{block.location.place}}"
+    ><b class="forecastLink">Почасовой прогноз</b></a
+  >
+  {% else %}
+  <a href="/forecast?name={{block.location.place}}"
+    ><b class="forecastLink">Дневной прогноз</b></a
+  >
+  {% endif %}
+  <br />
+  {% for i, card in block.cards %} {% if is_daily %} {{show_card(i, card)}} {%
+  else %} {{show_hourly_card(i, card)}} {% endif %} {% endfor %}
+  <img src="img/more_btn.svg" alt="" type="button" class="moreDown" />
 </aside>
 {% endmacro %}

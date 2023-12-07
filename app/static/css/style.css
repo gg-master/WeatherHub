@@ -1,5 +1,5 @@
 body {
-    width: 100vw;
+    /* width: 100vw; */
     height: 100vh;
     margin: 0;
     background-color: #ECF4FC82;
@@ -8,7 +8,7 @@ body {
 header {
     margin: 0;
     height: 64px;
-    width: 100vw;
+    /* width: 100vw; */
     background-color: #168FFF33;
     display: flex;
 }
@@ -44,7 +44,7 @@ header {
 }
 
 .menu h2 {
-    margin: 21px 0 0 24px;
+    margin: 20px 0 0 24px;
     color: #002586;
     font-family: Arial, 'Source Sans Pro';
     font-size: 20px;
@@ -57,7 +57,7 @@ header {
 }
 
 .menu .hub {
-    margin: 0;
+    margin-top: 10px;
 }
 
 .menu .language {
@@ -168,7 +168,7 @@ header {
 .menu ul li {
     display: block;
     width: 238px;
-    height: 30px;
+    min-height: 30px;
     border-radius: 5px;
     background-color: #fff;
     margin-bottom: 13px;
@@ -298,7 +298,7 @@ header h6 {
 }
 
 main {
-    width: 100vw;
+    /* width: 100vw; */
     margin: 0;
     display: flex;
 }
@@ -331,7 +331,6 @@ aside p {
     text-transform: lowercase;
     margin-top: 15px;
     margin-left: 42px;
-    margin-bottom: 15px;
     max-width: 100%;
 }
 
@@ -347,7 +346,7 @@ aside p y {
     text-transform: capitalize;
 }
 
-aside h6 {
+aside .forecastLink {
     color: #787878;
     font-family: Imprima, 'Source Sans Pro';
     font-size: 14px;
@@ -356,10 +355,9 @@ aside h6 {
     line-height: normal;
     text-decoration-line: underline;
     text-transform: lowercase;
-    float: right;
     margin: 0;
     margin-top: 21px;
-    margin-right: 42px;
+    margin-left: 85%;
 }
 
 .card {
@@ -524,7 +522,7 @@ aside .moreDown {
 }
 
 footer {
-    width: 100vw;
+    /* width: 100vw; */
     height: 223px;
 }
 
